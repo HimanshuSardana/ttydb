@@ -1,0 +1,33 @@
+➜  scraper git:(main S:1 U:3 ?:1) ✗  uv run main.py
+[2025-08-06 13:23:19,731] - INFO - AFC is enabled with max remote calls: 10.
+[2025-08-06 13:23:50,183] - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+[2025-08-06 13:23:50,188] - INFO - AFC remote call 1 is done.
+[2025-08-06 13:23:50,189] - INFO - 50 rows for topic 'Basic Selection' written to data.csv
+[2025-08-06 13:23:50,255] - INFO - AFC is enabled with max remote calls: 10.
+[2025-08-06 13:24:26,328] - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+[2025-08-06 13:24:26,335] - INFO - AFC remote call 1 is done.
+[2025-08-06 13:24:26,336] - INFO - 50 rows for topic 'Filtering (WHERE clause)' written to data.csv
+[2025-08-06 13:24:26,400] - INFO - AFC is enabled with max remote calls: 10.
+[2025-08-06 13:25:35,757] - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+[2025-08-06 13:25:35,762] - INFO - AFC remote call 1 is done.
+[2025-08-06 13:25:35,763] - INFO - 50 rows for topic 'Joins' written to data.csv
+[2025-08-06 13:25:35,829] - INFO - AFC is enabled with max remote calls: 10.
+[2025-08-06 13:26:16,616] - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+[2025-08-06 13:26:16,623] - INFO - AFC remote call 1 is done.
+[2025-08-06 13:26:16,624] - INFO - 50 rows for topic 'Aggregation (GROUP BY)' written to data.csv
+[2025-08-06 13:26:16,689] - INFO - AFC is enabled with max remote calls: 10.
+[2025-08-06 13:27:51,949] - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+[2025-08-06 13:27:51,955] - INFO - AFC remote call 1 is done.
+[2025-08-06 13:27:51,956] - INFO - 50 rows for topic 'Window Functions' written to data.csv
+[2025-08-06 13:27:52,021] - INFO - AFC is enabled with max remote calls: 10.
+[2025-08-06 13:29:34,247] - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+[2025-08-06 13:29:34,254] - INFO - AFC remote call 1 is done.
+[2025-08-06 13:29:34,255] - INFO - 50 rows for topic 'Subqueries' written to data.csv
+[2025-08-06 13:29:34,321] - INFO - AFC is enabled with max remote calls: 10.
+[2025-08-06 13:30:31,077] - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+[2025-08-06 13:30:31,082] - INFO - AFC remote call 1 is done.
+[2025-08-06 13:30:31,083] - INFO - 50 rows for topic 'Set Operations' written to data.csv
+[2025-08-06 13:30:31,147] - INFO - AFC is enabled with max remote calls: 10.
+[2025-08-06 13:31:19,205] - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+[2025-08-06 13:31:19,211] - INFO - AFC remote call 1 is done.
+[2025-08-06 13:31:19,212] - INFO - 50 rows for topic 'Date and Time Functions' written to data.csv
