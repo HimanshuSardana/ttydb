@@ -1,0 +1,1056 @@
+2025-08-07 23:59:19,653 [INFO] 🔍 Starting benchmark on model: qwen2.5_3b_text2sql
+2025-08-07 23:59:19,653 [INFO] 💡 Number of test prompts: 10
+2025-08-07 23:59:19,653 [INFO] 
+=== [1] Processing: Show me the top 5 highest paid employees. ===
+2025-08-07 23:59:19,656 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:00:31,837 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-08-08 00:00:31,847 [DEBUG] [1] Raw response: 200
+2025-08-08 00:00:31,849 [ERROR] [1] ❌ Failed to decode JSON string:  Sure! To find the top 5 highest paid employees from the `Employees` table, you can use a subquery to first determine the highest salaries and then select those employees. Here's how:
+
+1. Find the top salary.
+2. Find all employees earning at least that top salary.
+3. Limit to the top 5.
+
+This demonstrates filtering on a calculated value.
+
+```sql
+SELECT name, salary FROM (SELECT name, salary FROM Employees ORDER BY salary DESC LIMIT 1) AS TopEarners;
+```
+
+The inner subquery orders all employees by salary in descending order and takes only one row (the highest). The outer query then selects from this derived table to show the name and salary of these top earners. Note: This specific pattern is common for PostgreSQL, showing a single row with multiple columns extracted. Adjustments might be needed for other SQL dialects.
+2025-08-08 00:00:31,850 [INFO] 
+=== [2] Processing: List departments with more than 10 employees. ===
+2025-08-08 00:00:31,855 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:01:32,569 [INFO] 🔍 Starting benchmark on model: qwen2.5_3b_text2sql
+2025-08-08 00:01:32,569 [INFO] 💡 Number of test prompts: 10
+2025-08-08 00:01:32,569 [INFO] 
+=== [1] Processing: Show me the top 5 highest paid employees. ===
+2025-08-08 00:01:32,571 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:01:59,722 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1518
+2025-08-08 00:01:59,723 [DEBUG] [1] Raw response: 200
+2025-08-08 00:01:59,723 [ERROR] [1] ❌ Failed to decode JSON string:  SELECT name, salary FROM (SELECT * FROM Employees ORDER BY salary DESC LIMIT 5) AS TopEmployees; This query first selects all employee details and then orders them by 'salary' in descending order. The result is limited to the top 5 rows using `LIMIT 5`, effectively giving us the names and salaries of the highest earners. Parentheses are used for readability and clarity.
+2025-08-08 00:01:59,723 [INFO] 
+=== [2] Processing: List departments with more than 10 employees. ===
+2025-08-08 00:01:59,725 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:03:19,646 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2025-08-08 00:03:19,652 [DEBUG] [2] Raw response: 200
+2025-08-08 00:03:19,654 [ERROR] [2] ❌ Failed to decode JSON string:  SELECT department, COUNT(*) AS num_employees FROM Employees GROUP BY department HAVING COUNT(*) > 10; This query counts employees per department and then filters the results to show only departments that have more than 10 employees. COUNT(*) as a window function could also be used for the group by clause in some SQL dialects, though standard practice is to count after grouping. (Note: HAVING can replace WHERE in aggregate functions if you want based on group result). If using GROUP BY and then filtering with HAVING for more complex conditions or aggregate results, it's a common pattern. Let's assume 'Employees' table exists. This query groups by department and counts employees, then filters to show only departments with more than 10 employees using `HAVING`. The SQL equivalent of the described condition in the original text (though HAVING is for group result, not direct comparison like `WHERE`). Note: This is a simplified interpretation of 'show departments with more than x employees', as typically `GROUP BY` and then filtering/conditioning on aggregate would be separate steps. For exact translation, context would clarify.
+2025-08-08 00:03:19,654 [INFO] 
+=== [3] Processing: Find the average salary per department. ===
+2025-08-08 00:03:19,659 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:03:47,506 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1447
+2025-08-08 00:03:47,507 [DEBUG] [3] Raw response: 200
+2025-08-08 00:03:47,507 [ERROR] [3] ❌ Failed to decode JSON string:  SELECT AVG(salary) AS average_salary FROM Employees GROUP BY department; This query calculates the average salary for each department by grouping employees first by their 'department' and then computing the average 'salary' for those grouped results. The result is a single row per department, showing its average employee salary. (Group By, Aggregate Functions)
+2025-08-08 00:03:47,507 [INFO] 
+=== [4] Processing: Who is the youngest employee? ===
+2025-08-08 00:03:47,509 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:05:27,198 [INFO] 🚀 Starting structured benchmark on model: qwen2.5_3b_text2sql
+2025-08-08 00:05:27,199 [INFO] 
+[1] Processing question: Show me the top 5 highest paid employees.
+2025-08-08 00:05:27,201 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:05:27,203 [ERROR] [1] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1298, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1058, in _send_output
+    self.send(msg)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 996, in send
+    self.connect()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7fb608836890>: Failed to establish a new connection: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb608836890>: Failed to establish a new connection: [Errno 111] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 83, in <module>
+    res = requests.post(OLLAMA_URL, json=payload)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb608836890>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-08-08 00:05:27,206 [INFO] 
+[2] Processing question: List departments with more than 10 employees.
+2025-08-08 00:05:27,208 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:05:27,208 [ERROR] [2] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1298, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1058, in _send_output
+    self.send(msg)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 996, in send
+    self.connect()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7fb60868e0d0>: Failed to establish a new connection: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb60868e0d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 83, in <module>
+    res = requests.post(OLLAMA_URL, json=payload)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb60868e0d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-08-08 00:05:27,210 [INFO] 
+[3] Processing question: Find the average salary per department.
+2025-08-08 00:05:27,211 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:05:27,212 [ERROR] [3] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1298, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1058, in _send_output
+    self.send(msg)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 996, in send
+    self.connect()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7fb60869c750>: Failed to establish a new connection: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb60869c750>: Failed to establish a new connection: [Errno 111] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 83, in <module>
+    res = requests.post(OLLAMA_URL, json=payload)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb60869c750>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-08-08 00:05:27,214 [INFO] 
+[4] Processing question: Who is the youngest employee?
+2025-08-08 00:05:27,216 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:05:27,217 [ERROR] [4] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1298, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1058, in _send_output
+    self.send(msg)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 996, in send
+    self.connect()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7fb608890310>: Failed to establish a new connection: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb608890310>: Failed to establish a new connection: [Errno 111] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 83, in <module>
+    res = requests.post(OLLAMA_URL, json=payload)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb608890310>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-08-08 00:05:27,218 [INFO] 
+[5] Processing question: Show all employees hired in the last 2 years.
+2025-08-08 00:05:27,219 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:05:27,220 [ERROR] [5] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1298, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1058, in _send_output
+    self.send(msg)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 996, in send
+    self.connect()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7fb608836150>: Failed to establish a new connection: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb608836150>: Failed to establish a new connection: [Errno 111] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 83, in <module>
+    res = requests.post(OLLAMA_URL, json=payload)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb608836150>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-08-08 00:05:27,222 [INFO] 
+[6] Processing question: Which employee has the highest salary?
+2025-08-08 00:05:27,223 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:05:27,224 [ERROR] [6] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1298, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1058, in _send_output
+    self.send(msg)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 996, in send
+    self.connect()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7fb60869ec10>: Failed to establish a new connection: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb60869ec10>: Failed to establish a new connection: [Errno 111] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 83, in <module>
+    res = requests.post(OLLAMA_URL, json=payload)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb60869ec10>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-08-08 00:05:27,225 [INFO] 
+[7] Processing question: List employees who earn more than the average salary.
+2025-08-08 00:05:27,226 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:05:27,227 [ERROR] [7] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1298, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1058, in _send_output
+    self.send(msg)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 996, in send
+    self.connect()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7fb6086a8dd0>: Failed to establish a new connection: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb6086a8dd0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 83, in <module>
+    res = requests.post(OLLAMA_URL, json=payload)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb6086a8dd0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-08-08 00:05:27,229 [INFO] 
+[8] Processing question: Show number of employees in each department.
+2025-08-08 00:05:27,230 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:05:27,231 [ERROR] [8] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1298, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1058, in _send_output
+    self.send(msg)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 996, in send
+    self.connect()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7fb6086aafd0>: Failed to establish a new connection: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb6086aafd0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 83, in <module>
+    res = requests.post(OLLAMA_URL, json=payload)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb6086aafd0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-08-08 00:05:27,234 [INFO] 
+[9] Processing question: Find employees with names starting with 'A'.
+2025-08-08 00:05:27,236 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:05:27,237 [ERROR] [9] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1298, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1058, in _send_output
+    self.send(msg)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 996, in send
+    self.connect()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7fb60869e7d0>: Failed to establish a new connection: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb60869e7d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 83, in <module>
+    res = requests.post(OLLAMA_URL, json=payload)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb60869e7d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-08-08 00:05:27,239 [INFO] 
+[10] Processing question: Get all employees sorted by hire date.
+2025-08-08 00:05:27,240 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:05:27,240 [ERROR] [10] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1298, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 1058, in _send_output
+    self.send(msg)
+  File "/home/himanshu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/http/client.py", line 996, in send
+    self.connect()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 325, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7fb608837fd0>: Failed to establish a new connection: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb608837fd0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 83, in <module>
+    res = requests.post(OLLAMA_URL, json=payload)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb608837fd0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-08-08 00:05:27,242 [INFO] 
+=== 🧾 Final Benchmark Report ===
+2025-08-08 00:05:27,242 [INFO] Total Queries             : 10
+2025-08-08 00:05:27,242 [INFO] ✅ Valid Structured Output : 0
+2025-08-08 00:05:27,242 [INFO] ❌ Invalid JSON Structure  : 0
+2025-08-08 00:05:27,242 [INFO] ⚠️ Potential SQL Issues     : 0
+2025-08-08 00:05:27,242 [INFO] ❌ Request Failures        : 10
+2025-08-08 00:05:27,242 [INFO] ⏱️ Avg Response Time       : 0.00s
+2025-08-08 00:05:33,745 [INFO] 🚀 Starting structured benchmark on model: qwen2.5_3b_text2sql
+2025-08-08 00:05:33,746 [INFO] 
+[1] Processing question: Show me the top 5 highest paid employees.
+2025-08-08 00:05:33,747 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:06:14,549 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1270
+2025-08-08 00:06:14,560 [DEBUG] [1] Raw response: 200
+2025-08-08 00:06:14,561 [DEBUG] [1] Raw model output: {
+  "query": "SELECT name, salary FROM (SELECT * FROM Employees ORDER BY salary DESC LIMIT 5) AS TopEmployees;",
+  "explanation": "Selects the top 5 employees based on their 'salary' in descending order."
+}
+2025-08-08 00:06:14,596 [INFO] [1] ✅ Valid response in 40.81s
+2025-08-08 00:06:14,596 [DEBUG] [1] SQL Query:
+SELECT name, salary FROM (SELECT * FROM Employees ORDER BY salary DESC LIMIT 5) AS TopEmployees;
+2025-08-08 00:06:14,596 [DEBUG] [1] Explanation:
+Selects the top 5 employees based on their 'salary' in descending order.
+2025-08-08 00:06:14,596 [INFO] 
+[2] Processing question: List departments with more than 10 employees.
+2025-08-08 00:06:14,602 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:06:34,317 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1306
+2025-08-08 00:06:34,318 [DEBUG] [2] Raw response: 200
+2025-08-08 00:06:34,318 [DEBUG] [2] Raw model output: {"query": "SELECT department, COUNT(id) AS employee_count FROM Employees GROUP BY department HAVING COUNT(id) > 10;", "explanation": "Counts employees per department and then filters to show only departments with more than 10 employees."}
+2025-08-08 00:06:34,321 [INFO] [2] ✅ Valid response in 19.72s
+2025-08-08 00:06:34,321 [DEBUG] [2] SQL Query:
+SELECT department, COUNT(id) AS employee_count FROM Employees GROUP BY department HAVING COUNT(id) > 10;
+2025-08-08 00:06:34,322 [DEBUG] [2] Explanation:
+Counts employees per department and then filters to show only departments with more than 10 employees.
+2025-08-08 00:06:34,322 [INFO] 
+[3] Processing question: Find the average salary per department.
+2025-08-08 00:06:34,325 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:06:52,744 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1286
+2025-08-08 00:06:52,744 [DEBUG] [3] Raw response: 200
+2025-08-08 00:06:52,744 [DEBUG] [3] Raw model output: {
+  "query": "SELECT department, AVG(salary) AS average_salary FROM Employees GROUP BY department;",
+  "explanation": "This query computes the average salary for each employee department using AVG() and groups the results by department."
+}
+2025-08-08 00:06:52,748 [INFO] [3] ✅ Valid response in 18.42s
+2025-08-08 00:06:52,748 [DEBUG] [3] SQL Query:
+SELECT department, AVG(salary) AS average_salary FROM Employees GROUP BY department;
+2025-08-08 00:06:52,748 [DEBUG] [3] Explanation:
+This query computes the average salary for each employee department using AVG() and groups the results by department.
+2025-08-08 00:06:52,748 [INFO] 
+[4] Processing question: Who is the youngest employee?
+2025-08-08 00:06:52,750 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:07:06,798 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1119
+2025-08-08 00:07:06,799 [DEBUG] [4] Raw response: 200
+2025-08-08 00:07:06,799 [DEBUG] [4] Raw model output: {"query": "SELECT name, MIN(salary) FROM Employees GROUP BY department;", "explanation": "Determines the minimum salary within each employee department."}
+2025-08-08 00:07:06,803 [INFO] [4] ✅ Valid response in 14.05s
+2025-08-08 00:07:06,803 [DEBUG] [4] SQL Query:
+SELECT name, MIN(salary) FROM Employees GROUP BY department;
+2025-08-08 00:07:06,803 [DEBUG] [4] Explanation:
+Determines the minimum salary within each employee department.
+2025-08-08 00:07:06,803 [INFO] 
+[5] Processing question: Show all employees hired in the last 2 years.
+2025-08-08 00:07:06,805 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:07:25,283 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1259
+2025-08-08 00:07:25,284 [DEBUG] [5] Raw response: 200
+2025-08-08 00:07:25,284 [DEBUG] [5] Raw model output: {"query": "SELECT * FROM Employees WHERE EXTRACT(YEAR FROM hire_date) = (CURRENT_DATE::TEXT)::INTEGER;", "explanation": "Filters employees by checking if their hire year is within the last 2 years."}
+2025-08-08 00:07:25,288 [INFO] [5] ✅ Valid response in 18.48s
+2025-08-08 00:07:25,288 [DEBUG] [5] SQL Query:
+SELECT * FROM Employees WHERE EXTRACT(YEAR FROM hire_date) = (CURRENT_DATE::TEXT)::INTEGER;
+2025-08-08 00:07:25,288 [DEBUG] [5] Explanation:
+Filters employees by checking if their hire year is within the last 2 years.
+2025-08-08 00:07:25,288 [INFO] 
+[6] Processing question: Which employee has the highest salary?
+2025-08-08 00:07:25,289 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:07:43,530 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1240
+2025-08-08 00:07:43,534 [DEBUG] [6] Raw response: 200
+2025-08-08 00:07:43,534 [DEBUG] [6] Raw model output: {"query": "SELECT name, salary FROM Employees ORDER BY salary DESC LIMIT 1", "explanation": "Selects the name and salary of the employee with the highest salary by ordering descending and taking the top result."}
+2025-08-08 00:07:43,538 [INFO] [6] ✅ Valid response in 18.25s
+2025-08-08 00:07:43,538 [DEBUG] [6] SQL Query:
+SELECT name, salary FROM Employees ORDER BY salary DESC LIMIT 1
+2025-08-08 00:07:43,538 [DEBUG] [6] Explanation:
+Selects the name and salary of the employee with the highest salary by ordering descending and taking the top result.
+2025-08-08 00:07:43,538 [INFO] 
+[7] Processing question: List employees who earn more than the average salary.
+2025-08-08 00:07:43,540 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:08:15,388 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1410
+2025-08-08 00:08:15,394 [DEBUG] [7] Raw response: 200
+2025-08-08 00:08:15,394 [DEBUG] [7] Raw model output: {
+  "query": "SELECT name, salary FROM Employees WHERE salary > (SELECT AVG(salary) FROM Employees);",
+  "explanation": "The inner subquery calculates the average salary of all employees. The outer query then selects employees whose individual salary is greater than this calculated average."
+}
+2025-08-08 00:08:15,401 [INFO] [7] ✅ Valid response in 31.86s
+2025-08-08 00:08:15,401 [DEBUG] [7] SQL Query:
+SELECT name, salary FROM Employees WHERE salary > (SELECT AVG(salary) FROM Employees);
+2025-08-08 00:08:15,401 [DEBUG] [7] Explanation:
+The inner subquery calculates the average salary of all employees. The outer query then selects employees whose individual salary is greater than this calculated average.
+2025-08-08 00:08:15,402 [INFO] 
+[8] Processing question: Show number of employees in each department.
+2025-08-08 00:08:15,404 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:08:35,902 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1163
+2025-08-08 00:08:35,904 [DEBUG] [8] Raw response: 200
+2025-08-08 00:08:35,905 [DEBUG] [8] Raw model output: {"query": "SELECT department, COUNT(*) AS num_employees FROM Employees GROUP BY department;", "explanation": "Counts the number of employees for each unique department name."}
+2025-08-08 00:08:35,908 [INFO] [8] ✅ Valid response in 20.50s
+2025-08-08 00:08:35,908 [DEBUG] [8] SQL Query:
+SELECT department, COUNT(*) AS num_employees FROM Employees GROUP BY department;
+2025-08-08 00:08:35,909 [DEBUG] [8] Explanation:
+Counts the number of employees for each unique department name.
+2025-08-08 00:08:35,909 [INFO] 
+[9] Processing question: Find employees with names starting with 'A'.
+2025-08-08 00:08:35,910 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:08:53,549 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1160
+2025-08-08 00:08:53,550 [DEBUG] [9] Raw response: 200
+2025-08-08 00:08:53,550 [DEBUG] [9] Raw model output: {"query": "SELECT name, salary FROM Employees WHERE name LIKE 'A%'", "explanation": "Filters employees to include only those whose names start with the letter 'A'."}
+2025-08-08 00:08:53,554 [INFO] [9] ✅ Valid response in 17.64s
+2025-08-08 00:08:53,554 [DEBUG] [9] SQL Query:
+SELECT name, salary FROM Employees WHERE name LIKE 'A%'
+2025-08-08 00:08:53,554 [DEBUG] [9] Explanation:
+Filters employees to include only those whose names start with the letter 'A'.
+2025-08-08 00:08:53,554 [INFO] 
+[10] Processing question: Get all employees sorted by hire date.
+2025-08-08 00:08:53,555 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:09:11,578 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1252
+2025-08-08 00:09:11,578 [DEBUG] [10] Raw response: 200
+2025-08-08 00:09:11,586 [DEBUG] [10] Raw model output: {"query": "SELECT * FROM Employees ORDER BY hire_date DESC", "explanation": "This query selects all employee records and orders them by their 'hire_date' in descending order, assuming the date format is compatible."}
+2025-08-08 00:09:11,589 [INFO] [10] ✅ Valid response in 18.02s
+2025-08-08 00:09:11,589 [DEBUG] [10] SQL Query:
+SELECT * FROM Employees ORDER BY hire_date DESC
+2025-08-08 00:09:11,589 [DEBUG] [10] Explanation:
+This query selects all employee records and orders them by their 'hire_date' in descending order, assuming the date format is compatible.
+2025-08-08 00:09:11,589 [INFO] 
+=== 🧾 Final Benchmark Report ===
+2025-08-08 00:09:11,589 [INFO] Total Queries             : 10
+2025-08-08 00:09:11,589 [INFO] ✅ Valid Structured Output : 10
+2025-08-08 00:09:11,589 [INFO] ❌ Invalid JSON Structure  : 0
+2025-08-08 00:09:11,589 [INFO] ⚠️ Potential SQL Issues     : 0
+2025-08-08 00:09:11,589 [INFO] ❌ Request Failures        : 0
+2025-08-08 00:09:11,590 [INFO] ⏱️ Avg Response Time       : 21.78s
+2025-08-08 00:09:11,590 [INFO] ⏱️ Fastest                 : 14.05s
+2025-08-08 00:09:11,590 [INFO] ⏱️ Slowest                 : 40.81s
+2025-08-08 00:10:00,209 [INFO] 🚀 Starting structured benchmark on model: qwen2.5:3b
+2025-08-08 00:10:00,209 [INFO] 
+[1] Processing question: Show me the top 5 highest paid employees.
+2025-08-08 00:10:00,212 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:10:21,977 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1498
+2025-08-08 00:10:21,978 [DEBUG] [1] Raw response: 200
+2025-08-08 00:10:21,978 [DEBUG] [1] Raw model output: {
+  "query": "SELECT id, name, salary FROM Employees ORDER BY salary DESC LIMIT 5;",
+  "explanation": "This SQL query retrieves the top 5 highest paid employees by ordering their salaries in descending order and limiting the result to only the first 5 rows."
+}
+2025-08-08 00:10:21,986 [INFO] [1] ✅ Valid response in 21.77s
+2025-08-08 00:10:21,986 [DEBUG] [1] SQL Query:
+SELECT id, name, salary FROM Employees ORDER BY salary DESC LIMIT 5;
+2025-08-08 00:10:21,986 [DEBUG] [1] Explanation:
+This SQL query retrieves the top 5 highest paid employees by ordering their salaries in descending order and limiting the result to only the first 5 rows.
+2025-08-08 00:10:21,986 [INFO] 
+[2] Processing question: List departments with more than 10 employees.
+2025-08-08 00:10:21,988 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:10:36,984 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1515
+2025-08-08 00:10:36,985 [DEBUG] [2] Raw response: 200
+2025-08-08 00:10:36,985 [DEBUG] [2] Raw model output: {
+  "query": "SELECT department FROM Employees GROUP BY department HAVING COUNT(*) > 10;",
+  "explanation": "This query selects the departments where the count of employees is greater than 10, ensuring that only those departments with more than 10 employees are listed."
+}
+2025-08-08 00:10:36,988 [INFO] [2] ✅ Valid response in 15.00s
+2025-08-08 00:10:36,988 [DEBUG] [2] SQL Query:
+SELECT department FROM Employees GROUP BY department HAVING COUNT(*) > 10;
+2025-08-08 00:10:36,996 [DEBUG] [2] Explanation:
+This query selects the departments where the count of employees is greater than 10, ensuring that only those departments with more than 10 employees are listed.
+2025-08-08 00:10:36,996 [INFO] 
+[3] Processing question: Find the average salary per department.
+2025-08-08 00:10:36,998 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:10:55,708 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1837
+2025-08-08 00:10:55,709 [DEBUG] [3] Raw response: 200
+2025-08-08 00:10:55,709 [DEBUG] [3] Raw model output: {
+  "query": "SELECT department, AVG(salary) AS average_salary FROM Employees GROUP BY department;",
+  "explanation": "This SQL query calculates the average salary for each department in the Employees table. The SELECT statement includes a calculation of the average (AVG) of the 'salary' column and aliases it as 'average_salary'. The GROUP BY clause ensures that this calculation is done separately for each unique value in the 'department' column."
+}
+2025-08-08 00:10:55,712 [INFO] [3] ✅ Valid response in 18.71s
+2025-08-08 00:10:55,712 [DEBUG] [3] SQL Query:
+SELECT department, AVG(salary) AS average_salary FROM Employees GROUP BY department;
+2025-08-08 00:10:55,712 [DEBUG] [3] Explanation:
+This SQL query calculates the average salary for each department in the Employees table. The SELECT statement includes a calculation of the average (AVG) of the 'salary' column and aliases it as 'average_salary'. The GROUP BY clause ensures that this calculation is done separately for each unique value in the 'department' column.
+2025-08-08 00:10:55,713 [INFO] 
+[4] Processing question: Who is the youngest employee?
+2025-08-08 00:10:55,714 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:11:09,788 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1479
+2025-08-08 00:11:09,789 [DEBUG] [4] Raw response: 200
+2025-08-08 00:11:09,789 [DEBUG] [4] Raw model output: {
+  "query": "SELECT name FROM Employees ORDER BY hire_date ASC LIMIT 1;",
+  "explanation": "This query selects the name of the employee with the earliest hire date, which is the youngest based on the assumption that newer employees are hired after older ones."
+}
+2025-08-08 00:11:09,792 [INFO] [4] ✅ Valid response in 14.08s
+2025-08-08 00:11:09,792 [DEBUG] [4] SQL Query:
+SELECT name FROM Employees ORDER BY hire_date ASC LIMIT 1;
+2025-08-08 00:11:09,792 [DEBUG] [4] Explanation:
+This query selects the name of the employee with the earliest hire date, which is the youngest based on the assumption that newer employees are hired after older ones.
+2025-08-08 00:11:09,793 [INFO] 
+[5] Processing question: Show all employees hired in the last 2 years.
+2025-08-08 00:11:09,794 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:11:27,486 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1662
+2025-08-08 00:11:27,486 [DEBUG] [5] Raw response: 200
+2025-08-08 00:11:27,486 [DEBUG] [5] Raw model output: {
+  "query": "SELECT * FROM Employees WHERE hire_date >= DATE_SUB(CURDATE(), INTERVAL 2 YEAR);",
+  "explanation": "This SQL query selects all rows from the 'Employees' table where the 'hire_date' is within the last 2 years. The function DATE_SUB is used to subtract 2 years from the current date and time (CURDATE())."
+}
+2025-08-08 00:11:27,489 [INFO] [5] ✅ Valid response in 17.69s
+2025-08-08 00:11:27,489 [DEBUG] [5] SQL Query:
+SELECT * FROM Employees WHERE hire_date >= DATE_SUB(CURDATE(), INTERVAL 2 YEAR);
+2025-08-08 00:11:27,489 [DEBUG] [5] Explanation:
+This SQL query selects all rows from the 'Employees' table where the 'hire_date' is within the last 2 years. The function DATE_SUB is used to subtract 2 years from the current date and time (CURDATE()).
+2025-08-08 00:11:27,489 [INFO] 
+[6] Processing question: Which employee has the highest salary?
+2025-08-08 00:11:27,490 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:11:42,345 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1510
+2025-08-08 00:11:42,345 [DEBUG] [6] Raw response: 200
+2025-08-08 00:11:42,353 [DEBUG] [6] Raw model output: {
+  "query": "SELECT id, name, salary, hire_date, department FROM Employees ORDER BY salary DESC LIMIT 1;",
+  "explanation": "This query selects the employee with the highest salary by ordering employees by their salary in descending order and limiting the result to one row."
+}
+2025-08-08 00:11:42,355 [INFO] [6] ✅ Valid response in 14.86s
+2025-08-08 00:11:42,356 [DEBUG] [6] SQL Query:
+SELECT id, name, salary, hire_date, department FROM Employees ORDER BY salary DESC LIMIT 1;
+2025-08-08 00:11:42,356 [DEBUG] [6] Explanation:
+This query selects the employee with the highest salary by ordering employees by their salary in descending order and limiting the result to one row.
+2025-08-08 00:11:42,356 [INFO] 
+[7] Processing question: List employees who earn more than the average salary.
+2025-08-08 00:11:42,357 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:11:56,955 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1517
+2025-08-08 00:11:56,956 [DEBUG] [7] Raw response: 200
+2025-08-08 00:11:56,956 [DEBUG] [7] Raw model output: {
+  "query": "SELECT id, name FROM Employees WHERE salary > (SELECT AVG(salary) FROM Employees)",
+  "explanation": "This SQL query selects the employee ID and name from the Employees table where the salary is greater than the average salary calculated across all employees."
+}
+2025-08-08 00:11:56,959 [INFO] [7] ✅ Valid response in 14.60s
+2025-08-08 00:11:56,960 [DEBUG] [7] SQL Query:
+SELECT id, name FROM Employees WHERE salary > (SELECT AVG(salary) FROM Employees)
+2025-08-08 00:11:56,960 [DEBUG] [7] Explanation:
+This SQL query selects the employee ID and name from the Employees table where the salary is greater than the average salary calculated across all employees.
+2025-08-08 00:11:56,960 [INFO] 
+[8] Processing question: Show number of employees in each department.
+2025-08-08 00:11:56,961 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:12:11,957 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1572
+2025-08-08 00:12:11,958 [DEBUG] [8] Raw response: 200
+2025-08-08 00:12:11,958 [DEBUG] [8] Raw model output: {
+  "query": "SELECT department, COUNT(*) AS employee_count FROM Employees GROUP BY department;",
+  "explanation": "This SQL query selects the department column and counts the number of employees in each department. It groups the results by department to ensure that the count is calculated separately for each department."
+}
+2025-08-08 00:12:11,960 [INFO] [8] ✅ Valid response in 15.00s
+2025-08-08 00:12:11,960 [DEBUG] [8] SQL Query:
+SELECT department, COUNT(*) AS employee_count FROM Employees GROUP BY department;
+2025-08-08 00:12:11,960 [DEBUG] [8] Explanation:
+This SQL query selects the department column and counts the number of employees in each department. It groups the results by department to ensure that the count is calculated separately for each department.
+2025-08-08 00:12:11,960 [INFO] 
+[9] Processing question: Find employees with names starting with 'A'.
+2025-08-08 00:12:11,961 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:12:29,058 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1644
+2025-08-08 00:12:29,058 [DEBUG] [9] Raw response: 200
+2025-08-08 00:12:29,058 [DEBUG] [9] Raw model output: {
+  "query": "SELECT * FROM Employees WHERE name LIKE 'A%';",
+  "explanation": "This query selects all columns from the Employees table where the name column starts with the letter 'A'. The LIKE keyword is used along with '%', which means 'any number of characters' after the initial character, ensuring names starting with 'A' are selected."
+}
+2025-08-08 00:12:29,061 [INFO] [9] ✅ Valid response in 17.10s
+2025-08-08 00:12:29,061 [DEBUG] [9] SQL Query:
+SELECT * FROM Employees WHERE name LIKE 'A%';
+2025-08-08 00:12:29,062 [DEBUG] [9] Explanation:
+This query selects all columns from the Employees table where the name column starts with the letter 'A'. The LIKE keyword is used along with '%', which means 'any number of characters' after the initial character, ensuring names starting with 'A' are selected.
+2025-08-08 00:12:29,062 [INFO] 
+[10] Processing question: Get all employees sorted by hire date.
+2025-08-08 00:12:29,063 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-08 00:12:44,711 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1535
+2025-08-08 00:12:44,711 [DEBUG] [10] Raw response: 200
+2025-08-08 00:12:44,712 [DEBUG] [10] Raw model output: {
+  "query": "SELECT id, name, salary, hire_date, department FROM Employees ORDER BY hire_date ASC",
+  "explanation": "This SQL query selects all columns from the 'Employees' table and orders them by the 'hire_date' in ascending order to get employees sorted by their hire date."
+}
+2025-08-08 00:12:44,715 [INFO] [10] ✅ Valid response in 15.65s
+2025-08-08 00:12:44,715 [DEBUG] [10] SQL Query:
+SELECT id, name, salary, hire_date, department FROM Employees ORDER BY hire_date ASC
+2025-08-08 00:12:44,716 [DEBUG] [10] Explanation:
+This SQL query selects all columns from the 'Employees' table and orders them by the 'hire_date' in ascending order to get employees sorted by their hire date.
+2025-08-08 00:12:44,716 [INFO] 
+=== 🧾 Final Benchmark Report ===
+2025-08-08 00:12:44,716 [INFO] Total Queries             : 10
+2025-08-08 00:12:44,716 [INFO] ✅ Valid Structured Output : 10
+2025-08-08 00:12:44,716 [INFO] ❌ Invalid JSON Structure  : 0
+2025-08-08 00:12:44,716 [INFO] ⚠️ Potential SQL Issues     : 0
+2025-08-08 00:12:44,716 [INFO] ❌ Request Failures        : 0
+2025-08-08 00:12:44,716 [INFO] ⏱️ Avg Response Time       : 16.44s
+2025-08-08 00:12:44,716 [INFO] ⏱️ Fastest                 : 14.08s
+2025-08-08 00:12:44,716 [INFO] ⏱️ Slowest                 : 21.77s
