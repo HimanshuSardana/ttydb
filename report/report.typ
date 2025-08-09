@@ -1,3 +1,4 @@
+#import "./template_2.typ": *
 #set text(font: "Montserrat")
 #let ttydb = [
   #text()[
@@ -16,8 +17,12 @@
     ]
   ]
 
-  #box(fill: blue, inset: 10pt, radius: 8pt)[
-    #set text(fill: white)
+  #box(fill: blue.lighten(90%), inset: 10pt, radius: 8pt, stroke: (
+    thickness: 1pt,
+    paint: blue,
+    dash: "dashed",
+  ))[
+    #set text(fill: blue)
     #grid(columns: 2, column-gutter: 10pt, row-gutter: 10pt, align: left)[*Nitish*][102303239][*Himanshu Sardana*][102303244]
   ]
 ]
@@ -27,22 +32,13 @@
 #outline()
 #pagebreak()
 
-// #set text(font: "Montserrat")
+#set text(font: "Montserrat")
 #set heading(numbering: "1.")
 #show heading.where(level: 1): it => block[
-  #box(fill: white, width: 100%)[
-    #grid(columns: (3fr, 1fr), align: (left + bottom))[
-      #it.body
-    ][
-      #box(width: 80pt, height: 80pt, fill: blue)[
-        #align(center + horizon)[
-          #text(size: 22pt, fill: white)[
-            #counter(heading).display()
-          ]
-        ]
-      ]
-    ]
-  ]
+  #text(size: 12pt, fill: blue)[Chapter #counter(heading).display()] \
+  #it.body
+  #v(-2mm)
+  #line(length: 100%, stroke: (thickness: 1.0pt, paint: blue, dash: "dashed"))
 ]
 
 #show heading.where(level: 2): it => block[
@@ -75,6 +71,12 @@
 #pagebreak()
 
 = System Requirements
+
+// explain what Functional requirements, Non-functional requirements, and Constraints are
+#info(
+  "Functional Requirements",
+  "Functional requirements define the specific behaviors, features, and functionalities that the system must provide to meet user needs. They describe what the system should do, including inputs, outputs, and interactions with users or other systems.",
+)
 == Functional Requirements
 + *Natural Language Query Processing*: The system shall accept user queries in natural language and convert them into accurate SQL or data-specific queries for databases, CSV, and JSON files.
 + *Multi-Format Data Support*: The system shall support querying data from multiple sources/formats including relational databases (SQLite, PostgreSQL, etc.), CSV files, and JSON files.
@@ -109,6 +111,10 @@
 #pagebreak()
 
 = Design Goals & Key Decisions
+#info(
+  "Design Goals",
+  "Design goals outline the primary objectives and aspirations for the system, guiding its development and ensuring it meets user needs effectively.",
+)
 == Design Goals
 + *User-Friendly Interaction*: Enable users to query data using natural language without requiring knowledge of SQL or programming.
 + *Accuracy and Reliability*: Generate precise and executable queries that reflect the user’s intent with minimal errors.
@@ -129,6 +135,10 @@ We chose a lower-parameter model which required extensive fine-tuning—around 8
 
 #pagebreak()
 = System Architecture
+#info(
+  "High-Level Architecture",
+  "High-level architecture provides an overview of the system's structure, components, and their interactions, illustrating how the system is organized to meet design goals and functional requirements.",
+)
 == Overview of Architecture
 The frontend is built as a Next.js web application, providing a user-friendly interface for submitting natural language queries and displaying results. \
 The backend is split into two microservices for modularity and scalability:
@@ -234,6 +244,10 @@ If the query remains invalid after these attempts, the system falls back to usin
 #pagebreak()
 
 = Evaluation and Testing
+#info(
+  "Testing Methodology",
+  "The testing methodology outlines the approach taken to evaluate the system's performance, accuracy, and robustness in converting natural language queries into SQL statements. It describes the setup, test cases, and evaluation criteria used to measure success.",
+)
 == Testing Methodology
 The system is evaluated using an in-memory SQLite database populated with representative sample data across multiple related tables including Employees, Customers, Products, Orders, Reviews, and OrderDetails. This schema reflects a realistic business domain to challenge the model with diverse query types.
 
