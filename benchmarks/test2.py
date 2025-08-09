@@ -2,6 +2,37 @@ import sqlite3
 from ollama import chat
 from pydantic import BaseModel
 
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "execute_sql",
+            "description": "Executes a SQL query on the Products table and returns results",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {"type": "string", "description": "SQL query to execute"}
+                },
+                "required": ["query"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "validate_sql",
+            "description": "Validates the SQL syntax against the current schema",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {"type": "string"}
+                },
+                "required": ["query"]
+            }
+        }
+    }
+]
+
 # --- Schema Setup ---
 conn = sqlite3.connect(":memory:")
 cursor = conn.cursor()
@@ -150,20 +181,22 @@ def generate_sql(nl_query, prev_sql=None, error_message=None):
         prompt += f"\n\nThe previous SQL query was:\n{prev_sql}\nIt caused this error:\n{error_message}\n"
         prompt += "You can call tools like list_tables, describe_table, sample_rows, validate_sql, search_schema to check schema and fix errors."
 
-    # Simulating "tool call" by letting the model request info
-    # Here we intercept tool keywords and run them before returning
     response = chat(
         messages=[
             {'role': 'user', 'content': prompt}
         ],
+        tools=tools,
         model="text2sql",
         format=SQLResponse.model_json_schema(),
     )
 
-    # If the model requests a tool call (e.g., "CALL: list_tables")
     content = response.message.content
     if "CALL:" in content:
         tool_call = content.split("CALL:")[1].strip()
+
+        # --- Log which tool is being called ---
+        print(f"\n🔧 Tool call detected: {tool_call}")
+
         if tool_call.startswith("list_tables"):
             result = list_tables()
         elif tool_call.startswith("describe_table"):
@@ -183,7 +216,10 @@ def generate_sql(nl_query, prev_sql=None, error_message=None):
         else:
             result = f"Unknown tool: {tool_call}"
         
-        # Tell model the tool result and re-run
+        # --- Log the result of the tool call ---
+        print(f"📤 Tool result: {result}")
+
+        # Re-run generation with tool output fed back
         return generate_sql(nl_query, prev_sql, f"Tool {tool_call} returned: {result}")
 
     return SQLResponse.model_validate_json(content)
