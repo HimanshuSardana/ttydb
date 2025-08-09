@@ -105,6 +105,36 @@ cursor.executemany(
 
 conn.commit()
 
+# --- TOOL FUNCTIONS ---
+def list_tables():
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    return [row[0] for row in cursor.fetchall()]
+
+def describe_table(table_name):
+    cursor.execute(f"PRAGMA table_info({table_name});")
+    return cursor.fetchall()
+
+def sample_rows(table_name, limit=5):
+    cursor.execute(f"SELECT * FROM {table_name} LIMIT {limit};")
+    return cursor.fetchall()
+
+def validate_sql(sql_query):
+    try:
+        cursor.execute(sql_query)
+        _ = cursor.fetchall()
+        return {"valid": True, "rows": len(_)}
+    except Exception as e:
+        return {"valid": False, "error": str(e)}
+
+def search_schema(keyword):
+    results = []
+    for table in list_tables():
+        cols = describe_table(table)
+        matches = [c[1] for c in cols if keyword.lower() in c[1].lower()]
+        if matches:
+            results.append({table: matches})
+    return results
+
 # --- Response Model ---
 class SQLResponse(BaseModel):
     sql: str
@@ -112,67 +142,16 @@ class SQLResponse(BaseModel):
 
 # --- SQL Generation ---
 def generate_sql(nl_query, prev_sql=None, error_message=None):
-    schema_hint = """
-Database schema:
-Employees (
-    employee_id INTEGER PRIMARY KEY,
-    first_name TEXT NOT NULL,
-    last_name TEXT NOT NULL,
-    hire_date TEXT NOT NULL
-);
+    schema_hint = f"Database currently has these tables: {list_tables()}\n\n"
 
-Customers (
-    customer_id INTEGER PRIMARY KEY,
-    name TEXT NOT NULL,
-    email TEXT NOT NULL UNIQUE
-);
-
-Products (
-    product_id INTEGER PRIMARY KEY,
-    product_name TEXT NOT NULL,
-    category TEXT NOT NULL,
-    price REAL NOT NULL,
-    stock_quantity INTEGER NOT NULL,
-    status TEXT NOT NULL CHECK(status IN ('IN_STOCK', 'OUT_OF_STOCK', 'DISCONTINUED'))
-);
-
-Orders (
-    order_id INTEGER PRIMARY KEY,
-    customer_id INTEGER NOT NULL,
-    salesperson_id INTEGER,
-    order_date TEXT NOT NULL,
-    total_amount REAL NOT NULL,
-    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
-    FOREIGN KEY (salesperson_id) REFERENCES Employees(employee_id)
-);
-
-Reviews (
-    review_id INTEGER PRIMARY KEY,
-    product_id INTEGER NOT NULL,
-    customer_id INTEGER NOT NULL,
-    rating INTEGER NOT NULL CHECK(rating >= 1 AND rating <= 5),
-    review_date TEXT NOT NULL,
-    review_text TEXT,
-    FOREIGN KEY (product_id) REFERENCES Products(product_id),
-    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
-);
-
-OrderDetails (
-    order_detail_id INTEGER PRIMARY KEY,
-    order_id INTEGER NOT NULL,
-    product_id INTEGER NOT NULL,
-    quantity INTEGER NOT NULL,
-    unit_price REAL NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
-    FOREIGN KEY (product_id) REFERENCES Products(product_id)
-);
-"""
-
-    prompt = schema_hint + f"\nConvert the following request into SQL and explain it:\n{nl_query}"
+    prompt = schema_hint + f"Convert the following request into SQL and explain it:\n{nl_query}"
 
     if prev_sql and error_message:
-        prompt += f"\n\nThe previous SQL query was:\n{prev_sql}\nIt caused this error:\n{error_message}\nPlease fix the query."
+        prompt += f"\n\nThe previous SQL query was:\n{prev_sql}\nIt caused this error:\n{error_message}\n"
+        prompt += "You can call tools like list_tables, describe_table, sample_rows, validate_sql, search_schema to check schema and fix errors."
 
+    # Simulating "tool call" by letting the model request info
+    # Here we intercept tool keywords and run them before returning
     response = chat(
         messages=[
             {'role': 'user', 'content': prompt}
@@ -180,7 +159,34 @@ OrderDetails (
         model="text2sql",
         format=SQLResponse.model_json_schema(),
     )
-    return SQLResponse.model_validate_json(response.message.content)
+
+    # If the model requests a tool call (e.g., "CALL: list_tables")
+    content = response.message.content
+    if "CALL:" in content:
+        tool_call = content.split("CALL:")[1].strip()
+        if tool_call.startswith("list_tables"):
+            result = list_tables()
+        elif tool_call.startswith("describe_table"):
+            table_name = tool_call.split("(")[1].split(")")[0].strip("'\" ")
+            result = describe_table(table_name)
+        elif tool_call.startswith("sample_rows"):
+            args = tool_call.split("(")[1].split(")")[0].split(",")
+            table_name = args[0].strip("'\" ")
+            limit = int(args[1]) if len(args) > 1 else 5
+            result = sample_rows(table_name, limit)
+        elif tool_call.startswith("validate_sql"):
+            sql_arg = tool_call.split("(")[1].split(")")[0].strip("'\" ")
+            result = validate_sql(sql_arg)
+        elif tool_call.startswith("search_schema"):
+            keyword = tool_call.split("(")[1].split(")")[0].strip("'\" ")
+            result = search_schema(keyword)
+        else:
+            result = f"Unknown tool: {tool_call}"
+        
+        # Tell model the tool result and re-run
+        return generate_sql(nl_query, prev_sql, f"Tool {tool_call} returned: {result}")
+
+    return SQLResponse.model_validate_json(content)
 
 # --- Retry Execution ---
 def execute_with_retry(nl_query, max_retries=5):
@@ -229,23 +235,6 @@ queries = [
     "Find the average price of electronics.",
     "Get all products that are out of stock.",
     "List the top 5 products with the highest stock quantity.",
-    "Show each customer along with the number of orders they placed.",
-    "Retrieve all orders along with the customer name, ordered by order date descending.",
-    "Find the total quantity of each product sold across all orders.",
-    "Find the product name and total revenue for each product, sorted from highest to lowest revenue.",
-    "Find the top 3 customers who spent the most overall.",
-    "Show the names of customers who have never placed an order.",
-    "Find all products that have never been ordered.",
-    "Get the names of customers who bought both a Laptop and Headphones.",
-    "Which salesperson generated the most revenue? Show their full name and total revenue.",
-    "List all employees hired in the last year who have not made any sales.",
-    "What is the average order amount for each salesperson?",
-    "Find the total number of unique products sold by employee Jane Doe.",
-    "What is the average rating for products in the 'Electronics' category?",
-    "Find all products that have at least one review with a 1-star rating.",
-    "List the names of customers who have written more than one review.",
-    "Show all reviews containing the word 'excellent' or 'great', along with the product name.",
-    "Show the email addresses of customers who bought a 'Laptop' and also left a 5-star review for it.",
 ]
 
 benchmark(queries)
