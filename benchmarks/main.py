@@ -17,7 +17,7 @@ logging.basicConfig(
 
 # --- Ollama Config ---
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL_NAME = "qwen2.5:3b"
+MODEL_NAME = "text2sql:latest"
 
 # --- Structured Output Schema ---
 RESPONSE_SCHEMA = {
@@ -26,7 +26,7 @@ RESPONSE_SCHEMA = {
         "query": {"type": "string"},
         "explanation": {"type": "string"}
     },
-    "required": ["query", "explanation"]
+    "required": ["query"]
 }
 
 # --- Sample NL Questions ---
@@ -61,14 +61,10 @@ for i, question in enumerate(questions, 1):
 
     # Prompt designed to produce structured JSON
     prompt = f"""
-Given the following table schema:
 
 {TABLE_SCHEMA}
 
 Write a valid SQL query to answer the question: "{question}"
-
-Respond only with a JSON object matching this schema:
-{json.dumps(RESPONSE_SCHEMA, indent=2)}
     """.strip()
 
     payload = {

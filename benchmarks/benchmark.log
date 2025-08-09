@@ -1054,3 +1054,719 @@ This SQL query selects all columns from the 'Employees' table and orders them by
 2025-08-08 00:12:44,716 [INFO] ⏱️ Avg Response Time       : 16.44s
 2025-08-08 00:12:44,716 [INFO] ⏱️ Fastest                 : 14.08s
 2025-08-08 00:12:44,716 [INFO] ⏱️ Slowest                 : 21.77s
+2025-08-09 14:07:32,499 [INFO] 🚀 Starting structured benchmark on model: qwen2.5:3b
+2025-08-09 14:07:32,499 [INFO] 
+[1] Processing question: Show me the top 5 highest paid employees.
+2025-08-09 14:07:32,504 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:32,506 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:32,506 [DEBUG] [1] Raw response: 404
+2025-08-09 14:07:32,506 [ERROR] [1] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:32,507 [INFO] 
+[2] Processing question: List departments with more than 10 employees.
+2025-08-09 14:07:32,508 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:32,510 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:32,510 [DEBUG] [2] Raw response: 404
+2025-08-09 14:07:32,510 [ERROR] [2] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:32,511 [INFO] 
+[3] Processing question: Find the average salary per department.
+2025-08-09 14:07:32,511 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:32,513 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:32,513 [DEBUG] [3] Raw response: 404
+2025-08-09 14:07:32,513 [ERROR] [3] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:32,513 [INFO] 
+[4] Processing question: Who is the youngest employee?
+2025-08-09 14:07:32,514 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:32,516 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:32,516 [DEBUG] [4] Raw response: 404
+2025-08-09 14:07:32,516 [ERROR] [4] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:32,516 [INFO] 
+[5] Processing question: Show all employees hired in the last 2 years.
+2025-08-09 14:07:32,517 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:32,519 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:32,519 [DEBUG] [5] Raw response: 404
+2025-08-09 14:07:32,519 [ERROR] [5] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:32,520 [INFO] 
+[6] Processing question: Which employee has the highest salary?
+2025-08-09 14:07:32,521 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:32,523 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:32,524 [DEBUG] [6] Raw response: 404
+2025-08-09 14:07:32,524 [ERROR] [6] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:32,524 [INFO] 
+[7] Processing question: List employees who earn more than the average salary.
+2025-08-09 14:07:32,525 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:32,526 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:32,527 [DEBUG] [7] Raw response: 404
+2025-08-09 14:07:32,527 [ERROR] [7] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:32,527 [INFO] 
+[8] Processing question: Show number of employees in each department.
+2025-08-09 14:07:32,528 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:32,529 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:32,529 [DEBUG] [8] Raw response: 404
+2025-08-09 14:07:32,529 [ERROR] [8] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:32,530 [INFO] 
+[9] Processing question: Find employees with names starting with 'A'.
+2025-08-09 14:07:32,530 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:32,532 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:32,532 [DEBUG] [9] Raw response: 404
+2025-08-09 14:07:32,532 [ERROR] [9] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:32,532 [INFO] 
+[10] Processing question: Get all employees sorted by hire date.
+2025-08-09 14:07:32,533 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:32,534 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:32,534 [DEBUG] [10] Raw response: 404
+2025-08-09 14:07:32,534 [ERROR] [10] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:32,535 [INFO] 
+=== 🧾 Final Benchmark Report ===
+2025-08-09 14:07:32,535 [INFO] Total Queries             : 10
+2025-08-09 14:07:32,535 [INFO] ✅ Valid Structured Output : 0
+2025-08-09 14:07:32,535 [INFO] ❌ Invalid JSON Structure  : 0
+2025-08-09 14:07:32,535 [INFO] ⚠️ Potential SQL Issues     : 0
+2025-08-09 14:07:32,535 [INFO] ❌ Request Failures        : 10
+2025-08-09 14:07:32,535 [INFO] ⏱️ Avg Response Time       : 0.00s
+2025-08-09 14:07:32,535 [INFO] ⏱️ Fastest                 : 0.00s
+2025-08-09 14:07:32,535 [INFO] ⏱️ Slowest                 : 0.01s
+2025-08-09 14:07:45,437 [INFO] 🚀 Starting structured benchmark on model: qwen2.5:3b
+2025-08-09 14:07:45,438 [INFO] 
+[1] Processing question: Show me the top 5 highest paid employees.
+2025-08-09 14:07:45,439 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:45,441 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:45,442 [DEBUG] [1] Raw response: 404
+2025-08-09 14:07:45,442 [ERROR] [1] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:45,442 [INFO] 
+[2] Processing question: List departments with more than 10 employees.
+2025-08-09 14:07:45,443 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:45,444 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:45,445 [DEBUG] [2] Raw response: 404
+2025-08-09 14:07:45,445 [ERROR] [2] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:45,445 [INFO] 
+[3] Processing question: Find the average salary per department.
+2025-08-09 14:07:45,446 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:45,447 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:45,448 [DEBUG] [3] Raw response: 404
+2025-08-09 14:07:45,448 [ERROR] [3] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:45,448 [INFO] 
+[4] Processing question: Who is the youngest employee?
+2025-08-09 14:07:45,449 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:45,451 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:45,452 [DEBUG] [4] Raw response: 404
+2025-08-09 14:07:45,452 [ERROR] [4] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:45,452 [INFO] 
+[5] Processing question: Show all employees hired in the last 2 years.
+2025-08-09 14:07:45,453 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:45,455 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:45,455 [DEBUG] [5] Raw response: 404
+2025-08-09 14:07:45,456 [ERROR] [5] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:45,456 [INFO] 
+[6] Processing question: Which employee has the highest salary?
+2025-08-09 14:07:45,457 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:45,458 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:45,458 [DEBUG] [6] Raw response: 404
+2025-08-09 14:07:45,458 [ERROR] [6] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:45,459 [INFO] 
+[7] Processing question: List employees who earn more than the average salary.
+2025-08-09 14:07:45,460 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:45,461 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:45,461 [DEBUG] [7] Raw response: 404
+2025-08-09 14:07:45,461 [ERROR] [7] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:45,461 [INFO] 
+[8] Processing question: Show number of employees in each department.
+2025-08-09 14:07:45,462 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:45,464 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:45,464 [DEBUG] [8] Raw response: 404
+2025-08-09 14:07:45,464 [ERROR] [8] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:45,464 [INFO] 
+[9] Processing question: Find employees with names starting with 'A'.
+2025-08-09 14:07:45,465 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:45,466 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:45,467 [DEBUG] [9] Raw response: 404
+2025-08-09 14:07:45,467 [ERROR] [9] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:45,467 [INFO] 
+[10] Processing question: Get all employees sorted by hire date.
+2025-08-09 14:07:45,468 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:07:45,470 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 404 40
+2025-08-09 14:07:45,470 [DEBUG] [10] Raw response: 404
+2025-08-09 14:07:45,471 [ERROR] [10] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 88, in <module>
+    res.raise_for_status()
+  File "/home/himanshu/projects/ttydb/benchmarks/.venv/lib/python3.11/site-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://localhost:11434/api/generate
+2025-08-09 14:07:45,471 [INFO] 
+=== 🧾 Final Benchmark Report ===
+2025-08-09 14:07:45,471 [INFO] Total Queries             : 10
+2025-08-09 14:07:45,471 [INFO] ✅ Valid Structured Output : 0
+2025-08-09 14:07:45,471 [INFO] ❌ Invalid JSON Structure  : 0
+2025-08-09 14:07:45,471 [INFO] ⚠️ Potential SQL Issues     : 0
+2025-08-09 14:07:45,471 [INFO] ❌ Request Failures        : 10
+2025-08-09 14:07:45,471 [INFO] ⏱️ Avg Response Time       : 0.00s
+2025-08-09 14:07:45,471 [INFO] ⏱️ Fastest                 : 0.00s
+2025-08-09 14:07:45,471 [INFO] ⏱️ Slowest                 : 0.00s
+2025-08-09 14:08:29,947 [INFO] 🚀 Starting structured benchmark on model: text2sql:latest
+2025-08-09 14:08:29,947 [INFO] 
+[1] Processing question: Show me the top 5 highest paid employees.
+2025-08-09 14:08:29,949 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:08:40,188 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1196
+2025-08-09 14:08:40,188 [DEBUG] [1] Raw response: 200
+2025-08-09 14:08:40,189 [DEBUG] [1] Raw model output: {"query": "SELECT name, salary FROM Employees ORDER BY salary DESC LIMIT 5", "explanation": "This query retrieves the names and salaries of the five employees with the highest salaries."}
+2025-08-09 14:08:40,195 [INFO] [1] ✅ Valid response in 10.24s
+2025-08-09 14:08:40,195 [DEBUG] [1] SQL Query:
+SELECT name, salary FROM Employees ORDER BY salary DESC LIMIT 5
+2025-08-09 14:08:40,195 [DEBUG] [1] Explanation:
+This query retrieves the names and salaries of the five employees with the highest salaries.
+2025-08-09 14:08:40,195 [INFO] 
+[2] Processing question: List departments with more than 10 employees.
+2025-08-09 14:08:40,196 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:08:50,502 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1303
+2025-08-09 14:08:50,503 [DEBUG] [2] Raw response: 200
+2025-08-09 14:08:50,503 [DEBUG] [2] Raw model output: {"query": "SELECT department, COUNT(id) AS num_employees FROM Employees GROUP BY department HAVING COUNT(id) > 10", "explanation": "This query counts employees per department and then filters for departments with more than 10 employees."}
+2025-08-09 14:08:50,505 [INFO] [2] ✅ Valid response in 10.31s
+2025-08-09 14:08:50,505 [DEBUG] [2] SQL Query:
+SELECT department, COUNT(id) AS num_employees FROM Employees GROUP BY department HAVING COUNT(id) > 10
+2025-08-09 14:08:50,505 [DEBUG] [2] Explanation:
+This query counts employees per department and then filters for departments with more than 10 employees.
+2025-08-09 14:08:50,505 [INFO] 
+[3] Processing question: Find the average salary per department.
+2025-08-09 14:08:50,506 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:09:00,254 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1237
+2025-08-09 14:09:00,255 [DEBUG] [3] Raw response: 200
+2025-08-09 14:09:00,255 [DEBUG] [3] Raw model output: {"query": "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department ORDER BY average_salary DESC", "explanation": "Calculates the average salary for each department in the ' employee table."}
+2025-08-09 14:09:00,257 [INFO] [3] ✅ Valid response in 9.75s
+2025-08-09 14:09:00,257 [DEBUG] [3] SQL Query:
+SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department ORDER BY average_salary DESC
+2025-08-09 14:09:00,257 [DEBUG] [3] Explanation:
+Calculates the average salary for each department in the ' employee table.
+2025-08-09 14:09:00,257 [INFO] 
+[4] Processing question: Who is the youngest employee?
+2025-08-09 14:09:00,259 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:09:20,963 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1844
+2025-08-09 14:09:20,964 [DEBUG] [4] Raw response: 200
+2025-08-09 14:09:20,964 [DEBUG] [4] Raw model output: {"query": "SELECT name, age FROM (SELECT name, JULIANDAY('now') - JULIANDAY(hire_date) AS age_in_years FROM Employees) WHERE age_in_years = (SELECT MIN(age_in_years) FROM (SELECT JULIANDAY('now') - JULIANDAY(hire_date) AS age_in_years FROM Employees));", "explanation": "This query first calculates the age of each employee in years using `JULIANDAY`. Then, it finds the minimum age among them and selects the name(s) of the employee(s) who have that exact age."}
+2025-08-09 14:09:20,968 [INFO] [4] ✅ Valid response in 20.71s
+2025-08-09 14:09:20,968 [DEBUG] [4] SQL Query:
+SELECT name, age FROM (SELECT name, JULIANDAY('now') - JULIANDAY(hire_date) AS age_in_years FROM Employees) WHERE age_in_years = (SELECT MIN(age_in_years) FROM (SELECT JULIANDAY('now') - JULIANDAY(hire_date) AS age_in_years FROM Employees));
+2025-08-09 14:09:20,968 [DEBUG] [4] Explanation:
+This query first calculates the age of each employee in years using `JULIANDAY`. Then, it finds the minimum age among them and selects the name(s) of the employee(s) who have that exact age.
+2025-08-09 14:09:20,968 [INFO] 
+[5] Processing question: Show all employees hired in the last 2 years.
+2025-08-09 14:09:20,969 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:09:26,897 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 934
+2025-08-09 14:09:26,897 [DEBUG] [5] Raw response: 200
+2025-08-09 14:09:26,898 [DEBUG] [5] Raw model output: {"query": "SELECT id, name FROM Employees WHERE "    }
+2025-08-09 14:09:26,899 [ERROR] [5] ❌ Response did not match schema.
+{
+  "query": "SELECT id, name FROM Employees WHERE "
+}
+2025-08-09 14:09:26,899 [DEBUG] [5] Schema validation error: 'explanation' is a required property
+
+Failed validating 'required' in schema:
+    {'type': 'object',
+     'properties': {'query': {'type': 'string'},
+                    'explanation': {'type': 'string'}},
+     'required': ['query', 'explanation']}
+
+On instance:
+    {'query': 'SELECT id, name FROM Employees WHERE '}
+2025-08-09 14:09:26,899 [INFO] 
+[6] Processing question: Which employee has the highest salary?
+2025-08-09 14:09:26,900 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:09:32,695 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 924
+2025-08-09 14:09:32,695 [DEBUG] [6] Raw response: 200
+2025-08-09 14:09:32,695 [DEBUG] [6] Raw model output: {"query": "SELECT name, salary FROM Employees WHERE "  }
+2025-08-09 14:09:32,698 [ERROR] [6] ❌ Response did not match schema.
+{
+  "query": "SELECT name, salary FROM Employees WHERE "
+}
+2025-08-09 14:09:32,698 [DEBUG] [6] Schema validation error: 'explanation' is a required property
+
+Failed validating 'required' in schema:
+    {'type': 'object',
+     'properties': {'query': {'type': 'string'},
+                    'explanation': {'type': 'string'}},
+     'required': ['query', 'explanation']}
+
+On instance:
+    {'query': 'SELECT name, salary FROM Employees WHERE '}
+2025-08-09 14:09:32,698 [INFO] 
+[7] Processing question: List employees who earn more than the average salary.
+2025-08-09 14:09:32,700 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:09:46,213 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1509
+2025-08-09 14:09:46,213 [DEBUG] [7] Raw response: 200
+2025-08-09 14:09:46,213 [DEBUG] [7] Raw model output: {"query": "SELECT id, name FROM Employees WHERE \nWHERE\nWHERE: List employees who earn more than the average salary.\nExplanation: Calculates the overall average salary and selects employees whose individual salary is greater than this average.", "explanation": "SELECT id, name FROM Employees WHERE salary > (SELECT AVG(salary) FROM Employees)"}
+2025-08-09 14:09:46,217 [INFO] [7] ✅ Valid response in 13.51s
+2025-08-09 14:09:46,217 [DEBUG] [7] SQL Query:
+SELECT id, name FROM Employees WHERE 
+WHERE
+WHERE: List employees who earn more than the average salary.
+Explanation: Calculates the overall average salary and selects employees whose individual salary is greater than this average.
+2025-08-09 14:09:46,217 [DEBUG] [7] Explanation:
+SELECT id, name FROM Employees WHERE salary > (SELECT AVG(salary) FROM Employees)
+2025-08-09 14:09:46,217 [INFO] 
+[8] Processing question: Show number of employees in each department.
+2025-08-09 14:09:46,219 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:09:55,115 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1165
+2025-08-09 14:09:55,115 [DEBUG] [8] Raw response: 200
+2025-08-09 14:09:55,115 [DEBUG] [8] Raw model output: {"query": "SELECT department, COUNT(id) AS employee_count FROM Employees GROUP BY department", "explanation": "Counts the number of employees for each unique department in the ' " }
+2025-08-09 14:09:55,118 [INFO] [8] ✅ Valid response in 8.90s
+2025-08-09 14:09:55,118 [DEBUG] [8] SQL Query:
+SELECT department, COUNT(id) AS employee_count FROM Employees GROUP BY department
+2025-08-09 14:09:55,118 [DEBUG] [8] Explanation:
+Counts the number of employees for each unique department in the ' 
+2025-08-09 14:09:55,118 [INFO] 
+[9] Processing question: Find employees with names starting with 'A'.
+2025-08-09 14:09:55,119 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:10:02,577 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1035
+2025-08-09 14:10:02,577 [DEBUG] [9] Raw response: 200
+2025-08-09 14:10:02,577 [DEBUG] [9] Raw model output: {"query": "SELECT name FROM Employees WHERE ","explanation":"Selects the names of employees from the ' "  }
+2025-08-09 14:10:02,579 [INFO] [9] ✅ Valid response in 7.46s
+2025-08-09 14:10:02,579 [DEBUG] [9] SQL Query:
+SELECT name FROM Employees WHERE 
+2025-08-09 14:10:02,579 [DEBUG] [9] Explanation:
+Selects the names of employees from the ' 
+2025-08-09 14:10:02,579 [INFO] 
+[10] Processing question: Get all employees sorted by hire date.
+2025-08-09 14:10:02,580 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:10:11,960 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 1214
+2025-08-09 14:10:11,960 [DEBUG] [10] Raw response: 200
+2025-08-09 14:10:11,960 [DEBUG] [10] Raw model output: {"query": "SELECT name, salary FROM Employees ORDER BY hire_date ASC", "explanation": "This query selects employee names and salaries, then sorts the results by their hiring date in ascending order."}
+2025-08-09 14:10:11,962 [INFO] [10] ✅ Valid response in 9.38s
+2025-08-09 14:10:11,962 [DEBUG] [10] SQL Query:
+SELECT name, salary FROM Employees ORDER BY hire_date ASC
+2025-08-09 14:10:11,962 [DEBUG] [10] Explanation:
+This query selects employee names and salaries, then sorts the results by their hiring date in ascending order.
+2025-08-09 14:10:11,962 [INFO] 
+=== 🧾 Final Benchmark Report ===
+2025-08-09 14:10:11,963 [INFO] Total Queries             : 10
+2025-08-09 14:10:11,963 [INFO] ✅ Valid Structured Output : 8
+2025-08-09 14:10:11,963 [INFO] ❌ Invalid JSON Structure  : 2
+2025-08-09 14:10:11,963 [INFO] ⚠️ Potential SQL Issues     : 0
+2025-08-09 14:10:11,963 [INFO] ❌ Request Failures        : 0
+2025-08-09 14:10:11,963 [INFO] ⏱️ Avg Response Time       : 10.20s
+2025-08-09 14:10:11,963 [INFO] ⏱️ Fastest                 : 5.80s
+2025-08-09 14:10:11,963 [INFO] ⏱️ Slowest                 : 20.71s
+2025-08-09 14:15:16,295 [INFO] 🚀 Starting structured benchmark on model: text2sql:latest
+2025-08-09 14:15:16,296 [INFO] 
+[1] Processing question: Show me the top 5 highest paid employees.
+2025-08-09 14:15:16,297 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:15:17,842 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 473
+2025-08-09 14:15:17,842 [DEBUG] [1] Raw response: 200
+2025-08-09 14:15:17,842 [DEBUG] [1] Raw model output: {}
+2025-08-09 14:15:17,844 [ERROR] [1] ❌ Response did not match schema.
+{}
+2025-08-09 14:15:17,844 [DEBUG] [1] Schema validation error: 'query' is a required property
+
+Failed validating 'required' in schema:
+    {'type': 'object',
+     'properties': {'query': {'type': 'string'},
+                    'explanation': {'type': 'string'}},
+     'required': ['query', 'explanation']}
+
+On instance:
+    {}
+2025-08-09 14:15:17,844 [INFO] 
+[2] Processing question: List departments with more than 10 employees.
+2025-08-09 14:15:17,845 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:15:21,506 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 677
+2025-08-09 14:15:21,507 [DEBUG] [2] Raw response: 200
+2025-08-09 14:15:21,507 [DEBUG] [2] Raw model output: { "query": "SELECT department FROM Employees GROUP BY department HAVING COUNT(employee_id) > 10" }
+2025-08-09 14:15:21,508 [ERROR] [2] ❌ Response did not match schema.
+{
+  "query": "SELECT department FROM Employees GROUP BY department HAVING COUNT(employee_id) > 10"
+}
+2025-08-09 14:15:21,508 [DEBUG] [2] Schema validation error: 'explanation' is a required property
+
+Failed validating 'required' in schema:
+    {'type': 'object',
+     'properties': {'query': {'type': 'string'},
+                    'explanation': {'type': 'string'}},
+     'required': ['query', 'explanation']}
+
+On instance:
+    {'query': 'SELECT department FROM Employees GROUP BY department HAVING '
+              'COUNT(employee_id) > 10'}
+2025-08-09 14:15:21,508 [INFO] 
+[3] Processing question: Find the average salary per department.
+2025-08-09 14:15:21,509 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:15:24,870 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 655
+2025-08-09 14:15:24,870 [DEBUG] [3] Raw response: 200
+2025-08-09 14:15:24,870 [DEBUG] [3] Raw model output: { "query": "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department" }
+2025-08-09 14:15:24,871 [ERROR] [3] ❌ Response did not match schema.
+{
+  "query": "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department"
+}
+2025-08-09 14:15:24,872 [DEBUG] [3] Schema validation error: 'explanation' is a required property
+
+Failed validating 'required' in schema:
+    {'type': 'object',
+     'properties': {'query': {'type': 'string'},
+                    'explanation': {'type': 'string'}},
+     'required': ['query', 'explanation']}
+
+On instance:
+    {'query': 'SELECT department, AVG(salary) AS avg_salary FROM Employees '
+              'GROUP BY department'}
+2025-08-09 14:15:24,872 [INFO] 
+[4] Processing question: Who is the youngest employee?
+2025-08-09 14:15:24,872 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:15:28,477 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 667
+2025-08-09 14:15:28,478 [DEBUG] [4] Raw response: 200
+2025-08-09 14:15:28,478 [DEBUG] [4] Raw model output: { "table": "Employees", "query": "SELECT name FROM Employees ORDER BY hire_date ASC LIMIT 1" }
+2025-08-09 14:15:28,479 [ERROR] [4] ❌ Response did not match schema.
+{
+  "table": "Employees",
+  "query": "SELECT name FROM Employees ORDER BY hire_date ASC LIMIT 1"
+}
+2025-08-09 14:15:28,479 [DEBUG] [4] Schema validation error: 'explanation' is a required property
+
+Failed validating 'required' in schema:
+    {'type': 'object',
+     'properties': {'query': {'type': 'string'},
+                    'explanation': {'type': 'string'}},
+     'required': ['query', 'explanation']}
+
+On instance:
+    {'table': 'Employees',
+     'query': 'SELECT name FROM Employees ORDER BY hire_date ASC LIMIT 1'}
+2025-08-09 14:15:28,479 [INFO] 
+[5] Processing question: Show all employees hired in the last 2 years.
+2025-08-09 14:15:28,480 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:15:32,095 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 679
+2025-08-09 14:15:32,095 [DEBUG] [5] Raw response: 200
+2025-08-09 14:15:32,095 [DEBUG] [5] Raw model output: { "query": "SELECT id, name FROM Employees WHERE hire_date >= date('now', '-2 years');" }
+2025-08-09 14:15:32,096 [ERROR] [5] ❌ Response did not match schema.
+{
+  "query": "SELECT id, name FROM Employees WHERE hire_date >= date('now', '-2 years');"
+}
+2025-08-09 14:15:32,097 [DEBUG] [5] Schema validation error: 'explanation' is a required property
+
+Failed validating 'required' in schema:
+    {'type': 'object',
+     'properties': {'query': {'type': 'string'},
+                    'explanation': {'type': 'string'}},
+     'required': ['query', 'explanation']}
+
+On instance:
+    {'query': 'SELECT id, name FROM Employees WHERE hire_date >= '
+              "date('now', '-2 years');"}
+2025-08-09 14:15:32,097 [INFO] 
+[6] Processing question: Which employee has the highest salary?
+2025-08-09 14:15:32,097 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:15:46,644 [INFO] 🚀 Starting structured benchmark on model: text2sql:latest
+2025-08-09 14:15:46,644 [INFO] 
+[1] Processing question: Show me the top 5 highest paid employees.
+2025-08-09 14:15:46,646 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:15:47,267 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 471
+2025-08-09 14:15:47,267 [DEBUG] [1] Raw response: 200
+2025-08-09 14:15:47,267 [DEBUG] [1] Raw model output: {}
+2025-08-09 14:15:47,269 [ERROR] [1] ❌ Response did not match schema.
+{}
+2025-08-09 14:15:47,269 [DEBUG] [1] Schema validation error: 'query' is a required property
+
+Failed validating 'required' in schema:
+    {'type': 'object',
+     'properties': {'query': {'type': 'string'},
+                    'explanation': {'type': 'string'}},
+     'required': ['query']}
+
+On instance:
+    {}
+2025-08-09 14:15:47,269 [INFO] 
+[2] Processing question: List departments with more than 10 employees.
+2025-08-09 14:15:47,270 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:15:47,902 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 469
+2025-08-09 14:15:47,902 [DEBUG] [2] Raw response: 200
+2025-08-09 14:15:47,902 [DEBUG] [2] Raw model output: {}
+2025-08-09 14:15:47,904 [ERROR] [2] ❌ Response did not match schema.
+{}
+2025-08-09 14:15:47,904 [DEBUG] [2] Schema validation error: 'query' is a required property
+
+Failed validating 'required' in schema:
+    {'type': 'object',
+     'properties': {'query': {'type': 'string'},
+                    'explanation': {'type': 'string'}},
+     'required': ['query']}
+
+On instance:
+    {}
+2025-08-09 14:15:47,904 [INFO] 
+[3] Processing question: Find the average salary per department.
+2025-08-09 14:15:47,905 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:15:49,821 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 555
+2025-08-09 14:15:49,821 [DEBUG] [3] Raw response: 200
+2025-08-09 14:15:49,821 [DEBUG] [3] Raw model output: { "@odata.type": "#Microsoft.Graph.Table" }
+2025-08-09 14:15:49,823 [ERROR] [3] ❌ Response did not match schema.
+{
+  "@odata.type": "#Microsoft.Graph.Table"
+}
+2025-08-09 14:15:49,823 [DEBUG] [3] Schema validation error: 'query' is a required property
+
+Failed validating 'required' in schema:
+    {'type': 'object',
+     'properties': {'query': {'type': 'string'},
+                    'explanation': {'type': 'string'}},
+     'required': ['query']}
+
+On instance:
+    {'@odata.type': '#Microsoft.Graph.Table'}
+2025-08-09 14:15:49,823 [INFO] 
+[4] Processing question: Who is the youngest employee?
+2025-08-09 14:15:49,824 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 14:15:54,943 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 768
+2025-08-09 14:15:54,943 [DEBUG] [4] Raw response: 200
+2025-08-09 14:15:54,943 [DEBUG] [4] Raw model output: { "query": "SELECT name FROM Employees ORDER BY hire_date ASC LIMIT 1", "text": "Finds the name of the employee with the earliest hire date." }
+2025-08-09 14:15:54,949 [INFO] [4] ✅ Valid response in 5.12s
+2025-08-09 14:15:54,949 [DEBUG] [4] SQL Query:
+SELECT name FROM Employees ORDER BY hire_date ASC LIMIT 1
+2025-08-09 14:15:54,949 [ERROR] [4] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 116, in <module>
+    logging.debug(f"[{i}] Explanation:\n{response_json['explanation']}")
+                                         ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+KeyError: 'explanation'
+2025-08-09 14:15:54,950 [INFO] 
+[5] Processing question: Show all employees hired in the last 2 years.
+2025-08-09 14:15:54,951 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 15:15:50,754 [INFO] 🚀 Starting structured benchmark on model: text2sql:latest
+2025-08-09 15:15:50,754 [INFO] 
+[1] Processing question: Show me the top 5 highest paid employees.
+2025-08-09 15:15:50,758 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 15:15:58,840 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 763
+2025-08-09 15:15:58,841 [DEBUG] [1] Raw response: 200
+2025-08-09 15:15:58,841 [DEBUG] [1] Raw model output: {
+    "SELECT id, name, salary FROM Employees ORDER BY salary DESC LIMIT 5": "Retrieves 5 employee records with the highest salaries."
+}
+2025-08-09 15:15:58,844 [ERROR] [1] ❌ Response did not match schema.
+{
+  "SELECT id, name, salary FROM Employees ORDER BY salary DESC LIMIT 5": "Retrieves 5 employee records with the highest salaries."
+}
+2025-08-09 15:15:58,845 [DEBUG] [1] Schema validation error: 'query' is a required property
+
+Failed validating 'required' in schema:
+    {'type': 'object',
+     'properties': {'query': {'type': 'string'},
+                    'explanation': {'type': 'string'}},
+     'required': ['query']}
+
+On instance:
+    {'SELECT id, name, salary FROM Employees ORDER BY salary DESC LIMIT 5': 'Retrieves '
+                                                                            '5 '
+                                                                            'employee '
+                                                                            'records '
+                                                                            'with '
+                                                                            'the '
+                                                                            'highest '
+                                                                            'salaries.'}
+2025-08-09 15:15:58,845 [INFO] 
+[2] Processing question: List departments with more than 10 employees.
+2025-08-09 15:15:58,847 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 15:15:59,933 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 470
+2025-08-09 15:15:59,934 [DEBUG] [2] Raw response: 200
+2025-08-09 15:15:59,934 [DEBUG] [2] Raw model output: {}
+2025-08-09 15:15:59,937 [ERROR] [2] ❌ Response did not match schema.
+{}
+2025-08-09 15:15:59,938 [DEBUG] [2] Schema validation error: 'query' is a required property
+
+Failed validating 'required' in schema:
+    {'type': 'object',
+     'properties': {'query': {'type': 'string'},
+                    'explanation': {'type': 'string'}},
+     'required': ['query']}
+
+On instance:
+    {}
+2025-08-09 15:15:59,938 [INFO] 
+[3] Processing question: Find the average salary per department.
+2025-08-09 15:15:59,939 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 15:16:07,980 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 918
+2025-08-09 15:16:07,980 [DEBUG] [3] Raw response: 200
+2025-08-09 15:16:07,980 [DEBUG] [3] Raw model output: { "input": "CREATE TABLE Employees (id INTEGER PRIMARY KEY, name TEXT, salary REAL, hire_date TEXT, department TEXT);", "response": "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department;" }
+2025-08-09 15:16:07,983 [ERROR] [3] ❌ Response did not match schema.
+{
+  "input": "CREATE TABLE Employees (id INTEGER PRIMARY KEY, name TEXT, salary REAL, hire_date TEXT, department TEXT);",
+  "response": "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department;"
+}
+2025-08-09 15:16:07,984 [DEBUG] [3] Schema validation error: 'query' is a required property
+
+Failed validating 'required' in schema:
+    {'type': 'object',
+     'properties': {'query': {'type': 'string'},
+                    'explanation': {'type': 'string'}},
+     'required': ['query']}
+
+On instance:
+    {'input': 'CREATE TABLE Employees (id INTEGER PRIMARY KEY, name TEXT, '
+              'salary REAL, hire_date TEXT, department TEXT);',
+     'response': 'SELECT department, AVG(salary) AS avg_salary FROM '
+                 'Employees GROUP BY department;'}
+2025-08-09 15:16:07,984 [INFO] 
+[4] Processing question: Who is the youngest employee?
+2025-08-09 15:16:07,985 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 15:16:08,783 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 456
+2025-08-09 15:16:08,784 [DEBUG] [4] Raw response: 200
+2025-08-09 15:16:08,784 [DEBUG] [4] Raw model output: {}
+2025-08-09 15:16:08,787 [ERROR] [4] ❌ Response did not match schema.
+{}
+2025-08-09 15:16:08,788 [DEBUG] [4] Schema validation error: 'query' is a required property
+
+Failed validating 'required' in schema:
+    {'type': 'object',
+     'properties': {'query': {'type': 'string'},
+                    'explanation': {'type': 'string'}},
+     'required': ['query']}
+
+On instance:
+    {}
+2025-08-09 15:16:08,788 [INFO] 
+[5] Processing question: Show all employees hired in the last 2 years.
+2025-08-09 15:16:08,789 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 15:16:15,773 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 809
+2025-08-09 15:16:15,774 [DEBUG] [5] Raw response: 200
+2025-08-09 15:16:15,774 [DEBUG] [5] Raw model output: { "query": "SELECT * FROM Employees WHERE employees_hired_in_last_2_years ON (employees.hire_date BETWEEN DATE('now', '-2 years') AND DATE('now'))" }
+2025-08-09 15:16:15,790 [INFO] [5] ✅ Valid response in 6.99s
+2025-08-09 15:16:15,790 [DEBUG] [5] SQL Query:
+SELECT * FROM Employees WHERE employees_hired_in_last_2_years ON (employees.hire_date BETWEEN DATE('now', '-2 years') AND DATE('now'))
+2025-08-09 15:16:15,790 [ERROR] [5] ❌ Request failed.
+Traceback (most recent call last):
+  File "/home/himanshu/projects/ttydb/benchmarks/main.py", line 116, in <module>
+    logging.debug(f"[{i}] Explanation:\n{response_json['explanation']}")
+                                         ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+KeyError: 'explanation'
+2025-08-09 15:16:15,792 [INFO] 
+[6] Processing question: Which employee has the highest salary?
+2025-08-09 15:16:15,794 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 15:16:16,879 [DEBUG] http://localhost:11434 "POST /api/generate HTTP/1.1" 200 465
+2025-08-09 15:16:16,879 [DEBUG] [6] Raw response: 200
+2025-08-09 15:16:16,879 [DEBUG] [6] Raw model output: { }
+2025-08-09 15:16:16,882 [ERROR] [6] ❌ Response did not match schema.
+{}
+2025-08-09 15:16:16,882 [DEBUG] [6] Schema validation error: 'query' is a required property
+
+Failed validating 'required' in schema:
+    {'type': 'object',
+     'properties': {'query': {'type': 'string'},
+                    'explanation': {'type': 'string'}},
+     'required': ['query']}
+
+On instance:
+    {}
+2025-08-09 15:16:16,882 [INFO] 
+[7] Processing question: List employees who earn more than the average salary.
+2025-08-09 15:16:16,884 [DEBUG] Starting new HTTP connection (1): localhost:11434
+2025-08-09 15:16:45,260 [INFO] 🚀 Starting structured benchmark on model: text2sql:latest
+2025-08-09 15:16:45,260 [INFO] 
+[1] Processing question: Show me the top 5 highest paid employees.
+2025-08-09 15:16:45,263 [DEBUG] Starting new HTTP connection (1): localhost:11434
