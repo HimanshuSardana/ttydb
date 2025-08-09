@@ -15,6 +15,18 @@
   ]
 ]
 
+#let overview(title, body) = [
+  #box(fill: blue.lighten(90%), inset: (x: 12pt, y: 10pt), radius: 8pt)[
+    #smallcaps()[#text(fill: blue)[*in this chapter*]]
+    #v(-2mm)
+    #par(justify: true)[
+      #text(size: 9pt)[
+        #body
+      ]
+    ]
+  ]
+]
+
 #let info(title, body) = [
   #box(fill: blue.lighten(90%), inset: (x: 12pt, y: 10pt), radius: 8pt)[
     #smallcaps()[#text(fill: blue)[*#title*]]
@@ -23,6 +35,21 @@
       #text(size: 9pt)[
         #body
       ]
+    ]
+  ]
+]
+
+#let sources(body) = [
+  #box(
+    fill: blue.lighten(90%),
+    inset: (x: 12pt, y: 10pt),
+    radius: 8pt,
+    width: 100%,
+  )[
+    #smallcaps()[#text(fill: blue)[*Useful Links*]]
+    #v(-2mm)
+    #text(size: 9pt)[
+      #body
     ]
   ]
 ]
