@@ -1,8 +1,25 @@
+#import "@preview/hydra:0.6.2": anchor, hydra
 #import "@preview/fletcher:0.5.8": *
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
 #show: codly-init.with()
 #codly(zebra-fill: none)
+
+
+#set page(
+  header: anchor(),
+  footer: context align(
+    center,
+    block(
+      width: page.width,
+      box(width: 100%, height: 70pt, fill: blue.lighten(90%))[
+        #align(center + horizon)[
+          #grid(columns: (3fr, 1fr), align: left, inset: (x: 50pt))[#hydra(1)][#here().page()]
+        ],
+      ],
+    ),
+  ),
+)
 
 #codly(languages: codly-languages)
 #import "./template_2.typ": *
@@ -35,8 +52,8 @@
 ]
 
 #pagebreak()
-#set text(font: "New Computer Modern")
-#outline()
+// #set text(font: "New Computer Modern")
+#outline(depth: 1)
 #pagebreak()
 
 #set text(font: "Montserrat")
@@ -151,11 +168,11 @@ We chose a lower-parameter model which required extensive fine-tuning—around 8
 The frontend is built as a Next.js web application, providing a user-friendly interface for submitting natural language queries and displaying results. \
 The backend is split into two microservices for modularity and scalability:
 #show enum.where(): it => block[
-  #v(-3mm)
+  #v(-2mm)
   #it
 ]
-+ The first microservice is implemented as part of Next.js API routes. It handles file uploads (CSV, JSON) and processes them to create queryable databases.
-+ The second microservice is a Flask application responsible for model inference. It receives user queries, invokes the fine-tuned Qwen2.5-Coder:3B model, and returns generated SQL queries.
++ The *first microservice* is implemented as part of Next.js API routes. It handles file uploads (CSV, JSON) and processes them to create queryable databases.
++ The *second microservice* is a Flask application responsible for model inference. It receives user queries, invokes the fine-tuned Qwen2.5-Coder:3B model, and returns generated SQL queries.
 
 #let step(title, body) = [
   #align(left)[
@@ -376,7 +393,18 @@ If the query remains invalid after these attempts, the system falls back to usin
   ]
   ```
 
-  The generated data (8347 rows) was saved in a JSON file, which was then used to fine-tune the `Qwen2.5-Coder:3B` model.
+  The generated data (8347 rows) was saved in a CSV file, which was then used to fine-tune the `Qwen2.5-Coder:3B` model.
+
+  #codly(highlights: ((line: 1, fill: blue, tag: "Column names"),))
+  ```csv
+  Instruction,Query,Table Schema,Explanation
+  Retrieve all information about products.,SELECT * FROM Products;,"CREATE TABLE Products (product_id INTEGER PRIMARY KEY, product_name TEXT, category TEXT, price REAL, stock_quantity INTEGER);",Selects all columns and all rows from the Products table.␍
+  List the names and prices of all products.,"SELECT product_name, price FROM Products;","CREATE TABLE Products (product_id INTEGER PRIMARY KEY, product_name TEXT, category TEXT, price REAL, stock_quantity INTEGER);",Retrieves only the product_name and price columns from the Products table.␍
+  Show the product name as 'Item Name' and its price as 'Unit Price'.,"SELECT product_name AS ""Item Name"", price AS ""Unit Price"" FROM Products;","CREATE TABLE Products (product_id INTEGER PRIMARY KEY, product_name TEXT, category TEXT, price REAL, stock_quantity INTEGER);","Selects the product_name column and renames it to 'Item Name', and price column renamed to 'Unit Price' from the Products table."␍
+  Get the product name and category using a table alias for the Products table.,"SELECT p.product_name, p.category FROM Products AS p;","CREATE TABLE Products (product_id INTEGER PRIMARY KEY, product_name TEXT, category TEXT, price REAL, stock_quantity INTEGER);","Selects product_name and category columns from the Products table, using 'p' as an alias for the table name."␍
+  Find all unique categories of products.,SELECT DISTINCT category FROM Products;,"CREATE TABLE Products (product_id INTEGER PRIMARY KEY, product_name TEXT, category TEXT, price REAL, stock_quantity INTEGER);",Retrieves only the unique values from the category column in the Products table.␍
+
+  ```
 ]
 + *Microservice Architecture*: The system design leverages microservices for modular handling of file processing and model inference, improving scalability and maintainability.
 + *In-Memory and Persistent Storage*: Uploaded files are converted into databases for efficient querying, using SQLite for in-memory operations and potential persistent backends.
@@ -439,6 +467,8 @@ Sample queries used test common analytical requests such as:
 - Handling review data with conditional logic
 
 The final benchmark reports the number of queries correctly executed out of the total, giving a quantitative measure of system accuracy and resilience.
+
+The logs for the test runs can be found #text(fill: blue)[#underline(link("google.com", "here"))]
 
 == Performance Metrics
 The system was evaluated on a benchmark suite consisting of 23 natural language queries covering a variety of database operations including selection, aggregation, joins, filtering, and nested queries.
@@ -516,5 +546,4 @@ During development and testing, several challenges emerged:
 ]
 
 = References
-
 

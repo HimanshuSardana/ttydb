@@ -132,7 +132,6 @@ cursor.executemany(
 
 conn.commit()
 
-# Response model
 class SQLResponse(BaseModel):
     sql: str
     explanation: str
