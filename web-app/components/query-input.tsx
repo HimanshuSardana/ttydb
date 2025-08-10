@@ -55,20 +55,23 @@ export default function QueryInput({ onSubmit }) {
 
 	return (
 		<div>
-			<form onSubmit={handleSubmit} className="*:not-first:mt-2">
+			<form onSubmit={handleSubmit} className="*:not-first:mt-1">
 				<Input
 					id={id}
 					placeholder="Enter your query here"
 					type="text"
 					value={query}
-					className="py-7 bg-secondary"
+					className="py-7 bg-secondary mt-5"
+					disabled={loading}
 					onChange={(e) => setQuery(e.target.value)}
 				/>
 			</form>
 
 			{/* Optional inline preview */}
 			<div className="mt-4">
-				{loading && <p>Running query...</p>}
+				{loading && (<div className="flex flex-row gap-3">
+					<div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+					<p className="text-xs text-muted-foreground">Generating Query...</p></div>)}
 			</div>
 		</div>
 	)

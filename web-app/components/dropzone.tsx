@@ -120,8 +120,8 @@ export default function Dropzone() {
 						</Button>
 					</div>
 
-					<Button onClick={sendToBackend} className="w-full">
-						Send to backend
+					<Button onClick={sendToBackend} className="w-full font-bold">
+						Upload
 					</Button>
 				</div>
 			)}

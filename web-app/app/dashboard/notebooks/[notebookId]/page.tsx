@@ -1,5 +1,5 @@
 "use client"
-
+import { motion } from "framer-motion";
 import QueryInput from "@/components/query-input"
 import { AppSidebar } from "@/components/app-sidebar"
 import { Button } from "@/components/ui/button"
@@ -82,7 +82,7 @@ export default function NotebookPage() {
 				<div className="flex flex-1 flex-col gap-4 p-8 pt-0 pr-[5%]">
 					{/* Notebook title */}
 					<div className="flex flex-row gap-1 justify-between items-center">
-						<div className="flex flex-col">
+						<div className="flex flex-col mt-3 gap-1">
 							<h3 className="text-3xl font-black">Notebook {notebookId}</h3>
 							<p className="text-muted-foreground">
 								Manage your notebooks and queries here.
@@ -104,9 +104,9 @@ export default function NotebookPage() {
 					</div>
 
 					{/* Scrollable queries list */}
-					<div className="flex-1 flex flex-col-reverse overflow-y-auto gap-4">
+					<motion.div layout className="flex-1 flex flex-col-reverse overflow-y-auto gap-4 mt-5">
 						{queries.map((q, index) => (
-							<div
+							<motion.div
 								key={index}
 								className="p-4 border rounded-lg bg-card shadow-sm hover:shadow-md transition-shadow"
 							>
@@ -114,9 +114,9 @@ export default function NotebookPage() {
 								<div className="flex items-center justify-between">
 									<h3 className="text-lg font-semibold">{q.query}</h3>
 									<span
-										className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${q.reply.success
-											? "bg-green-100 text-green-800"
-											: "bg-red-100 text-red-800"
+										className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${q.reply.success
+											? "bg-emerald-800/20 text-emerald-800"
+											: "bg-red-800/20 text-red-500"
 											}`}
 									>
 										{q.reply.success
@@ -131,7 +131,7 @@ export default function NotebookPage() {
 								</p>
 
 								{/* SQL */}
-								<div className="mt-3 bg-muted/40 p-3 rounded-md overflow-x-auto">
+								<div className="mt-3 bg-muted/90 p-3 rounded-md overflow-x-auto">
 									<code className="text-sm font-mono text-foreground">
 										{q.reply.sql}
 									</code>
@@ -141,8 +141,8 @@ export default function NotebookPage() {
 								{q.reply.rows && q.reply.rows.length > 1 && (
 									<div className="mt-4 overflow-x-auto">
 										<table className="min-w-full border border-border rounded-md">
-											<thead className="bg-muted/60">
-												<tr>
+											<thead className="bg-muted/60 rounded-md">
+												<tr className="rounded-md">
 													{q.reply.rows[0].map(
 														(col: string, i: number) => (
 															<th
@@ -179,12 +179,12 @@ export default function NotebookPage() {
 										</table>
 									</div>
 								)}
-							</div>
+							</motion.div>
 						))}
-					</div>
+					</motion.div>
 
 					{/* Query input */}
-					<div className="sticky bottom-0 bg-background pt-4 w-full">
+					<div className="sticky bottom-0 bg-background pt-4 mt-1 w-full">
 						<QueryInput
 							onSubmit={(query, reply) =>
 								handleNewQuery(query, reply)
