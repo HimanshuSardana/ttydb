@@ -1,0 +1,6 @@
+EmployeeID,Name,Department,Position,DateOfJoining,Salary,FullTime
+101,Alice Johnson,HR,HR Manager,2020-03-15,65000,True
+102,Bob Smith,Finance,Accountant,2018-07-22,55000,True
+103,Charlie Lee,IT,Software Engineer,2021-01-10,75000,True
+104,Diana Patel,Marketing,Marketing Specialist,2019-11-05,60000,False
+105,Ethan Brown,Operations,Operations Manager,2017-05-18,70000,True
