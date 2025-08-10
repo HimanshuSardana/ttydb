@@ -11,18 +11,15 @@ from typing import Optional
 
 DB_PATH = "data.db"
 timeout_seconds = 60
-uploaded_tables = []  # keep schema info for prompt
+uploaded_tables = []  
 
-# --- Flask app ---
 app = Flask(__name__)
 CORS(app)
 
-# --- Models ---
 class SQLResponse(BaseModel):
     sql: str
     explanation: str
 
-# --- DB utils ---
 def clear_all_tables():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -43,7 +40,6 @@ def get_table_schema(table_name):
     conn.close()
     return schema_info
 
-# --- Ollama wrapper ---
 def _chat_call(prompt_content: str) -> SQLResponse:
     print(f"[LLM] Sending prompt:\n{prompt_content}")
     response = chat(
@@ -84,7 +80,12 @@ def execute_with_retry(nl_query: str, max_retries=5):
             sql_query = sql_response.sql.replace("WHEREING", "WHERE")
             print(f"[QUERY] Generated SQL:\n{sql_query}")
             cursor.execute(sql_query)
+            column_names = [description[0] for description in cursor.description]
             rows = cursor.fetchall()
+
+            rows = [column_names] + rows if rows else []
+
+            # add column names to the beginning of the rows
             print(f"[QUERY] Success. Returned {len(rows)} rows.")
             return {
                 "success": True,
@@ -106,7 +107,6 @@ def execute_with_retry(nl_query: str, max_retries=5):
         "error": last_error
     }
 
-# --- API routes ---
 @app.route("/upload", methods=["POST"])
 def upload_file():
     if "file" not in request.files:
@@ -161,7 +161,6 @@ def run_query():
         return jsonify({"error": "Missing 'nl_query'"}), 400
     return jsonify(execute_with_retry(data["nl_query"]))
 
-# --- Startup ---
 if __name__ == "__main__":
     print("[INIT] Clearing existing tables...")
     clear_all_tables()
