@@ -71,7 +71,7 @@ export default function Page() {
 							{notebooks.map((notebook) => (
 								<div
 									key={notebook.id}
-									className="rounded-lg p-4 hover:bg-muted bg-primary/20  h-32"
+									className="rounded-lg p-4 hover:bg-muted bg-neutral-950/90  h-32"
 								>
 									<h4 className="text-xl font-semibold">
 										{notebook.name}

@@ -61,6 +61,7 @@ export default function QueryInput({ onSubmit }) {
 					placeholder="Enter your query here"
 					type="text"
 					value={query}
+					className="py-7 bg-secondary"
 					onChange={(e) => setQuery(e.target.value)}
 				/>
 			</form>
@@ -68,28 +69,6 @@ export default function QueryInput({ onSubmit }) {
 			{/* Optional inline preview */}
 			<div className="mt-4">
 				{loading && <p>Running query...</p>}
-				{result?.rows && (
-					<div className="overflow-x-auto border rounded-md">
-						<Table>
-							<TableHeader>
-								<TableRow>
-									{result.columns?.map((col, idx) => (
-										<TableHead key={idx}>{col}</TableHead>
-									))}
-								</TableRow>
-							</TableHeader>
-							<TableBody>
-								{result.rows.map((row, rIdx) => (
-									<TableRow key={rIdx}>
-										{row.map((cell, cIdx) => (
-											<TableCell key={cIdx}>{cell}</TableCell>
-										))}
-									</TableRow>
-								))}
-							</TableBody>
-						</Table>
-					</div>
-				)}
 			</div>
 		</div>
 	)
