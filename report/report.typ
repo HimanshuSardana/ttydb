@@ -3,6 +3,7 @@
 #import "@preview/zebraw:0.5.5": *
 #show: zebraw
 
+
 #set page(
   header: anchor(),
   footer: context align(
@@ -498,28 +499,149 @@ The model finally corrected the alias issue by using `e.first_name` and `e.last_
 
 #pagebreak()
 = Multi-source Data Handling
+#overview("", [
+  In this chapter, we explore the techniques and challenges involved in handling data from multiple sources, including relational databases, CSV files, and JSON files. The system's architecture is designed to support seamless integration and querying across these diverse data formats. \
+  #box()[
+    + *Techniques for Data Integration*: This section discusses the methods used to integrate and query data from various sources, ensuring a unified approach to data handling.
+    + *Handling Data from Multiple Sources*: This section outlines how the system manages different data formats and sources, providing a consistent querying experience.
+    + *Challenges in Data Integration*: This section highlights the challenges faced when integrating and querying multi-source data, including schema differences, data quality issues, and performance considerations.
+  ],
+])
 == Techniques for Data Integration
+ttyDB integrates data from multiple file formats by normalizing inputs into a single, queryable SQLite backend. The integration process includes:
+#v(-1.5mm)
++ *Format Detection*: Incoming files are validated by extension and matched to an appropriate parser (`pd.read_csv` for CSV, `pd.read_json` for JSON).
++ *Data Conversion*: The parsed data is converted into an in-memory DataFrame, then persisted into SQLite via `df.to_sql`.
++ *Schema Extraction*: After table creation, `get_table_schema()` retrieves structural details (columns, types) for UI rendering and natural language query generation.
+
 == Handling Data from Multiple Sources
+Currently, ttyDB supports CSV and JSON ingestion. The workflow ensures that regardless of source format:
++ *Unique Identification*: Tables get unique, collision-free names (`<base_filename>_<uuid>`).
++ *Centralized Storage*: All uploaded datasets are stored in a single SQLite database, enabling cross-table joins and unified querying.
++ *UI Integration*: The extracted schema is immediately available to the frontend for query suggestions, schema previews, and validation.
+
 == Challenges in Data Integration
+Even with a consistent pipeline, several challenges remain:
++ *Schema Variability*: CSV and JSON may have inconsistent column naming, nested structures (in JSON), or missing values.
++ *Data Quality*: Malformed CSV rows, incorrect datatypes, and JSON parsing errors can disrupt ingestion.
++ *Performance*: Large datasets can cause slow upload-to-query times; SQLite performance tuning may be needed for >1M rows.
++ *Future Extensibility*:  Adding support for other formats (Excel, Parquet, APIs) requires maintaining the same normalization guarantees.
++ *Security*: Malicious uploads could exploit SQL injection vectors if schema handling is not sanitized.
 
 #pagebreak()
 = Frontend & User Experience
+#overview("", [
+  In this chapter, we delve into the frontend design and user experience considerations of ttyDB. The frontend is built using modern web technologies to provide an intuitive and responsive interface for users to interact with the system. \
+  #box()[
+    + *User Interface Design*: This section outlines the design principles and components used in the frontend, ensuring a consistent and user-friendly experience.
+    + *User Experience Considerations*: This section discusses the user experience design choices made to enhance usability, accessibility, and overall satisfaction.
+    + *Accessibility Features*: This section highlights the accessibility features implemented in the frontend to ensure that all users, including those with disabilities, can effectively use the system.
+  ]
+])
+The ttyDB frontend is built with *Next.js*, *ShadCN/UI*, and *TailwindCSS*, enabling a clean, responsive, and component-driven architecture. This technology stack allows developers to quickly build consistent, accessible, and aesthetically pleasing components while maintaining high performance and adaptability across devices. The use of TailwindCSS ensures that styles are utility-first and easy to maintain, while ShadCN/UI provides a robust set of accessible, theme-aware components that blend seamlessly into the application’s design language.
+
 == User Interface Design
++ *Consistency*: All components follow a unified style system defined via Tailwind variables and ShadCN/UI primitives, ensuring that colors, typography, and spacing remain uniform across all pages and features.
++ *Clarity*: Data is displayed in structured, easy-to-read tables, with schema information and query results presented in clearly separated panels so users can quickly locate and interpret information.
++ *Visual Hierarchy*: Important actions such as file uploads, query execution, and table management are visually emphasized using primary buttons, strategic placement, and recognizable Lucide icons to draw the user’s attention.
++ *Modular Components*: Core UI features—such as upload dialogs, table previews, schema viewers, and query result cards—are implemented as reusable, self-contained components. This approach improves maintainability, reduces redundancy, and allows rapid UI iteration.
+
 == User Experience Considerations
++ *Immediate Feedback*: Every user action, such as uploading a file or executing a query, triggers visible feedback in the form of progress indicators, success banners, or error alerts. This constant feedback loop ensures users are never left wondering if an action succeeded or failed.
++ *Low Friction Querying*: The NL→SQL pipeline allows users to write natural language queries instead of SQL, significantly lowering the barrier to entry for non-technical users. At the same time, the generated SQL is displayed for transparency and learning purposes.
++ *Error Handling*: When problems occur—whether due to incorrect file formatting, invalid queries, or data inconsistencies—clear error banners (built using the ShadCN Alert component) appear with actionable messages and suggestions for resolution.
++ *Performance Optimization*: To handle large datasets efficiently, the frontend uses lazy loading, client-side pagination, and conditional rendering, ensuring smooth scrolling and interactions even with tens of thousands of rows.
+
 == Accessibility Features
++ *Keyboard Navigation*: All interactive elements, including buttons, file upload areas, tables, and dialogs, can be fully navigated and activated using only a keyboard. This ensures the application is usable without a mouse and supports power users who prefer keyboard shortcuts.
++ *ARIA Labels*: Semantic HTML roles and ARIA attributes are applied throughout the interface, providing descriptive cues for assistive technologies like screen readers, so visually impaired users can understand the purpose and state of each element.
++ *Color Contrast*: Design tokens in Tailwind are carefully selected to meet or exceed WCAG contrast requirements in both light and dark themes, improving text readability and reducing eye strain for all users.
++ *Responsive Layouts*: The UI automatically adjusts to fit mobile, tablet, and desktop screen sizes, maintaining full functionality and optimal usability on any device without requiring horizontal scrolling or excessive zooming.
++ *Focus Management*: When dialogs or modals are opened, focus is programmatically trapped inside them until closed, preventing keyboard users and assistive tech from unintentionally navigating to elements behind the overlay.
+
 
 #pagebreak()
 = Backend and Infrastructure
+#overview("", [
+  In this chapter, we explore the backend architecture and infrastructure of ttyDB, detailing how the system is designed to handle data processing, model inference, and user management. The backend is built to be modular, scalable, and secure, ensuring efficient handling of natural language queries and data uploads. \
+
+  #box()[
+    + *Backend Architecture*: This section describes the architecture of the backend, including the separation of concerns between different services and their responsibilities.
+    + *Database Management*: This section outlines the database management strategies employed in ttyDB, including the use of SQLite for data storage and retrieval.
+    + *Infrastructure Considerations*: This section discusses the infrastructure choices made to support the backend services, including deployment strategies, security measures, and scalability options.
+  ]
+])
+
 == Backend Architecture
+The backend of ttyDB is split into two coordinated services, each optimized for a specific set of responsibilities:
++ *Next.js API Routes (Authentication & User Data Management)*  
+   The Next.js application includes API routes that handle:
+   + *Authentication & Authorization*: Secure user sign-in, session handling, and role-based access control.
+   + *User Data Storage*: Using SQLite with Prisma as an ORM, it stores:
+     - User profiles and authentication details.
+     - User-created notebooks (saved workspaces, datasets, and queries).
+     - A history of natural language queries and their generated SQL outputs.
+   + *Query History Management*: Allows users to revisit, re-run, and modify previous queries.
+   + *Integration with Frontend*: Serves data directly to the Next.js frontend without needing a separate API service for user-related functionality.
+
++ *Flask API (Data Upload, Processing & NL→SQL Conversion)*  
+   The Flask-based service focuses exclusively on data ingestion, conversion, and query execution:
+   + *File Upload & Parsing*: Accepts `.csv` and `.json` files, validates them, and parses them with `pandas`.
+   + *SQLite Table Creation*: Creates uniquely named tables in a dedicated SQLite database for each uploaded dataset.
+   + *Schema Introspection*: Retrieves table schemas for use in query generation and frontend previews.
+   + *Natural Language to SQL*: Passes user-entered queries to the fine-tuned Qwen2.5 3B model, validates the generated SQL, and executes it against the appropriate SQLite database.
+   + *Result Delivery*: Returns query results as JSON for easy rendering in the UI.
+   + *Error Handling*: Logs and reports issues, ensuring that invalid queries or malformed files are handled gracefully.
+
+By separating these two services, ttyDB ensures that:
++ Authentication and sensitive user data remain isolated from the data ingestion and query execution service.
++ The natural language query processing pipeline can be scaled or deployed independently.
++ Updates to the query engine or file ingestion process do not affect user authentication or session management.
+
 == Database Management
+ttyDB employs two different SQLite databases, each serving a distinct purpose:
+
++ *User & Application Data Database* (managed by Prisma in Next.js)  
+   + Stores user profiles, authentication credentials, notebooks, query history, and outputs.
+   + Managed through Prisma migrations, ensuring schema consistency and easy updates.
+   + Optimized for relational queries and frequent reads/writes related to user activity.
+   
++ *Dataset Storage Database* (managed by Flask)  
+   + Contains all uploaded CSV/JSON datasets, each stored in its own uniquely named table.
+   + Designed for analytical queries rather than transactional operations.
+   + Schema is determined dynamically based on uploaded files, with basic type inference applied.
+   + Indexed on key columns (e.g., IDs, timestamps) for performance in repeated queries.
+   
+This dual-database strategy ensures that:
++ User account data is isolated from potentially large and volatile analytical datasets.
++ Query performance for datasets is unaffected by authentication or application-level operations.
++ Data portability is straightforward—both databases are simple SQLite files.
+
 == Infrastructure Considerations
+While ttyDB is lightweight by design, several infrastructure choices improve its performance, scalability, and maintainability:
+
++ *Service Separation*: The authentication/user-data API (Next.js) and data ingestion/query API (Flask) can be deployed on separate servers or containers, allowing independent scaling.
++ *Containerization*: Both services can be packaged into Docker containers, simplifying deployment and dependency management.
++ *Security & Data Isolation*: User authentication runs in a separate service from dataset uploads and query execution, reducing attack surface.
++ *Stateless Flask API*: The Flask service is stateless aside from the SQLite dataset storage, making horizontal scaling easier.
++ *Database Backups*: Automated backup routines for both SQLite databases ensure recoverability in case of corruption or accidental deletion.
++ *Potential Future Upgrades*: The architecture allows an easy switch to more scalable databases (e.g., PostgreSQL for user data, DuckDB for analytics) if needed without major code rewrites.
+
+This backend design balances simplicity with extensibility, keeping deployment friction low while ensuring that the system can evolve as data volumes and user demands grow.
 
 #pagebreak()
 
 = Evaluation and Testing
-#info(
+#overview(
   "Testing Methodology",
-  "The testing methodology outlines the approach taken to evaluate the system's performance, accuracy, and robustness in converting natural language queries into SQL statements. It describes the setup, test cases, and evaluation criteria used to measure success.",
+  [
+    In this chapter, we detail the evaluation and testing methodology used to assess the performance and accuracy of the ttyDB system in converting natural language queries into SQL statements. The testing process is designed to ensure that the system can handle a variety of query types and data structures effectively. \
+    #box()[
+      + *Testing Methodology*: This section outlines the approach taken to evaluate the system, including the setup, test cases, and evaluation criteria.
+      + *Performance Metrics*: This section presents the metrics used to measure the system's performance, including success rates, error handling, and query execution times.
+      + *Results of Testing*: This section summarizes the results of the testing process, highlighting the system's strengths and areas for improvement.
+    ]
+  ]
 )
 == Testing Methodology
 The system is evaluated using an in-memory SQLite database populated with representative sample data across multiple related tables including Employees, Customers, Products, Orders, Reviews, and OrderDetails. This schema reflects a realistic business domain to challenge the model with diverse query types.
@@ -575,6 +697,13 @@ These results affirm the practical viability of the proposed approach for real-w
 
 #pagebreak()
 = Challenges and Lessons Learned
+#overview("", [
+  In this chapter, we reflect on the technical challenges encountered during the development and testing of ttyDB, as well as the lessons learned from these experiences. The project faced several hurdles related to model limitations, error handling, and system architecture, which provided valuable insights for future improvements. \
+  #box()[
+    + *Technical Challenges*: This section discusses the technical challenges faced during development, including model limitations, error handling, and system architecture issues.
+    + *Lessons Learned*: This section summarizes the key lessons learned from the project, including insights into model performance, error correction strategies, and system design considerations.
+  ]
+])
 == Technical Challenges
 During development and testing, several challenges emerged:
 + *Model Size Limitations*: Using a comparatively smaller 3B parameter model constrained the complexity of queries the system could confidently generate, necessitating extensive fine-tuning and iterative correction.
@@ -594,6 +723,13 @@ During development and testing, several challenges emerged:
 
 #pagebreak()
 = Future Work
+#overview("", [
+  In this chapter, we outline the planned enhancements and potential features for ttyDB, focusing on improving the system's capabilities, user experience, and overall performance. The future work aims to address the current limitations and expand the system's functionality to better serve users' needs. \
+  #box()[
+    + *Planned Enhancements*: This section describes the planned enhancements to the system, including improvements to the tool calling mechanism, adaptive query refinement, and multi-modal data support.
+    + *Potential Features*: This section outlines potential features that could be added to enhance the user experience, such as natural language query history, visual query builders, and real-time query suggestions.
+  ]
+])
 == Planned Enhancements
 + Improved Tool Calling Mechanism: Develop a more reliable tool calling system with better prompt engineering to reduce hallucinations and irrelevant calls.
 + Adaptive Query Refinement: Introduce smarter retry logic that prioritizes fixes based on error types to optimize query correction efficiency.
@@ -622,5 +758,31 @@ During development and testing, several challenges emerged:
   This project demonstrates the feasibility of converting natural language queries into executable SQL statements using a fine-tuned 3B-parameter model. Despite inherent challenges such as hallucinations and syntax errors, an iterative correction mechanism coupled with fallback strategies ensured high accuracy and robustness. The system successfully handled a diverse set of complex queries against a representative database schema, achieving a benchmark accuracy of 22 out of 23 queries. Future improvements in tool calling, query refinement, and multi-modal support will further enhance usability and performance, making natural language database querying accessible to a broader audience.
 ]
 
+#pagebreak()
 = References
+#overview("", "In this section, we provide a list of references and resources that were instrumental in the development of ttyDB. These resources include documentation, tutorials, and articles related to natural language processing, SQL generation, and the technologies used in this project.")
+== Fine-tuning LLMs
++ #link("https://medium.com/@sbasil.ahamed/fine-tuning-llms-with-unsloth-and-ollama-a-step-by-step-guide-33c82facde51", "Fine-Tuning LLMs with Unsloth and Ollama: A Step-by-Step Guide")
++ #link("https://docs.unsloth.ai/basics/tutorials-how-to-fine-tune-and-run-llms/tutorial-how-to-finetune-llama-3-and-use-in-ollama", "Tutorial: How to Finetune Llama-3 and Use In Ollama")
++ #link("https://ollama.com/library/qwen2.5", "Qwen2.5-Coder:3B on Ollama")
+
+== Synthetic Data Generation
++ #link("https://ai.google.dev/gemini-api/docs", "Gemini API | Google AI for Developers")
++ #link("https://docs.pydantic.dev/latest/usage/models/", "Pydantic Models Documentation")
++ #link("https://chatgpt.com", "ChatGPT")
+
+== SQLite and Pandas
++ #link("https://sqlite.org/docs.html", "SQLite3 Documentation")
++ #link("https://pandas.pydata.org/docs/user_guide/io.html#io-sql", "Pandas Documentation")
+
+== Frontend Development
++ #link("https://nextjs.org/docs", "Next.js Documentation")
++ #link("https://shadcn-ui.com/docs", "ShadCN/UI Component Library")
++ #link("https://tailwindcss.com/docs", "TailwindCSS Documentation")
+
+== Backend Development
++ #link("https://flask.palletsprojects.com/en/2.3.x/", "Flask Documentation")
++ #link("https://prisma.io/docs", "Prisma Documentation")
++ #link("https://docs.ollama.com", "Ollama Documentation")
++ #link("https://www.better-auth.com/docs/basic-usage", "Basic Usage | BetterAuth")
 
