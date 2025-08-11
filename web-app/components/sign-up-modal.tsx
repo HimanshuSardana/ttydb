@@ -1,4 +1,7 @@
-import { useId } from "react"
+"use client"
+import { LoadingButton } from "./loading-button";
+import { useId, useState } from "react"
+import { authClient } from "@/lib/auth-client";
 
 import { Button } from "@/components/ui/button"
 import {
@@ -14,6 +17,36 @@ import { Label } from "@/components/ui/label"
 
 export default function SignUpModal() {
 	const id = useId()
+
+	const [loadingStatus, setLoadingStatus] = useState(false)
+
+	const [name, setName] = useState("")
+	const [email, setEmail] = useState("")
+	const [password, setPassword] = useState("")
+
+	const handleSignUp = async () => {
+		setLoadingStatus(true)
+		const { data, error } = await authClient.signUp.email({
+			email,
+			password,
+			name,
+			callbackURL: "/dashboard"
+		}, {
+			onRequest: (ctx) => {
+				console.log("Signing up with email:");
+			},
+			onSuccess: (ctx) => {
+				console.log("Sign up successful", ctx.data);
+				setLoadingStatus(false);
+			},
+			onError: (ctx) => {
+				alert(ctx.error.message);
+				console.error("Sign up failed", ctx.error);
+				setLoadingStatus(false);
+			},
+		});
+	}
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -31,7 +64,7 @@ export default function SignUpModal() {
 					</DialogHeader>
 				</div>
 
-				<form className="space-y-5">
+				<form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
 					<div className="space-y-4">
 						<div className="*:not-first:mt-2">
 							<Label htmlFor={`${id}-name`}>Full name</Label>
@@ -40,6 +73,8 @@ export default function SignUpModal() {
 								placeholder="Himanshu Sardana"
 								type="text"
 								required
+								value={name}
+								onChange={(e) => setName(e.target.value)}
 							/>
 						</div>
 						<div className="*:not-first:mt-2">
@@ -49,6 +84,8 @@ export default function SignUpModal() {
 								placeholder="hi@yourcompany.com"
 								type="email"
 								required
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
 							/>
 						</div>
 						<div className="*:not-first:mt-2">
@@ -59,12 +96,19 @@ export default function SignUpModal() {
 								type="password"
 								autoComplete="false"
 								required
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
 							/>
 						</div>
 					</div>
-					<Button type="button" className="w-full font-bold">
-						Sign up
-					</Button>
+					<LoadingButton
+						type="button"
+						className="w-full font-bold"
+						onClick={handleSignUp}
+						loading={loadingStatus}
+					>
+						{loadingStatus ? "Signing up..." : "Sign up"}
+					</LoadingButton>
 				</form>
 
 				<div className="before:bg-border after:bg-border flex items-center gap-3 before:h-px before:flex-1 after:h-px after:flex-1">
@@ -84,3 +128,4 @@ export default function SignUpModal() {
 		</Dialog>
 	)
 }
+

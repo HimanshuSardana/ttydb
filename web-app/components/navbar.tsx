@@ -11,6 +11,7 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover"
 import SignUpModal from "./sign-up-modal"
+import SignInModal from "./sign-in-modal"
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
@@ -110,9 +111,7 @@ export default function Navbar() {
 					    <a href="#">Sign In</a>
 					    </Button>
 					*/}
-					<Button asChild size="sm" className="text-xs font-bold">
-						<a href="#">Get Started</a>
-					</Button>
+					<SignInModal />
 				</div>
 			</div>
 		</header>
