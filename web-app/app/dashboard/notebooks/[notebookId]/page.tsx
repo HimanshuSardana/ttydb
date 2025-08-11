@@ -1,4 +1,5 @@
 "use client"
+import { Plus } from "@mynaui/icons-react";
 import { motion } from "framer-motion";
 import QueryInput from "@/components/query-input"
 import { AppSidebar } from "@/components/app-sidebar"
@@ -91,10 +92,10 @@ export default function NotebookPage() {
 
 						<Dialog>
 							<DialogTrigger>
-								<Button className="font-bold">Add Data Source</Button>
+								<Button className="font-bold"><Plus size={10} /> Data Source</Button>
 							</DialogTrigger>
 							<DialogContent className="w-1/3">
-								<DialogTitle>Add New Data Source</DialogTitle>
+								<DialogTitle>New Data Source</DialogTitle>
 								<DialogDescription className="-mt-2">
 									Add a new data source that you can query in natural language.
 								</DialogDescription>

@@ -12,12 +12,12 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-export default function SignInModal() {
+export default function SignUpModal() {
 	const id = useId()
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="outline">Sign up</Button>
+				<Button variant="outline" className="text-xs">Sign up</Button>
 			</DialogTrigger>
 			<DialogContent className="w-1/4">
 				<div className="flex flex-col items-start gap-2">
