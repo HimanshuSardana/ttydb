@@ -179,7 +179,7 @@ The backend is split into two microservices for modularity and scalability:
   #v(-2mm)
   #it
 ]
-+ The *first microservice* is implemented as part of Next.js API routes. It handles file uploads (CSV, JSON) and processes them to create queryable databases.
++ The *first microservice* is implemented as part of Flask API. It handles file uploads (CSV, JSON) and processes them to create queryable databases.
 + The *second microservice* is a Flask application responsible for model inference. It receives user queries, invokes the fine-tuned Qwen2.5-Coder:3B model, and returns generated SQL queries.
 
 #let step(title, body) = [
@@ -201,7 +201,7 @@ The backend is split into two microservices for modularity and scalability:
       [#text(fill: blue, weight: "bold", size: 6pt)[File Upload]],
       "->",
     ),
-    node((1, 0), [#step("File Upload Microservice", "Next.js Server Actions")]),
+    node((1, 0), [#step("File Upload Microservice", "Flask API")]),
     edge(
       (1, 0),
       (1, 1),
@@ -223,7 +223,7 @@ The backend is split into two microservices for modularity and scalability:
 + *Frontend (Next.js Web App)*
   Provides the user interface for uploading files, entering natural language queries, and viewing query results and explanations. It handles user authentication, input validation, and displays responses from the backend services.
 
-+ *File Processing Microservice (Next.js API Routes)*
++ *File Processing Microservice (Flask API)*
   Manages file uploads (CSV, JSON) from users, parses and converts these files into structured in-memory or persistent databases that can be queried efficiently.
 
 + *Model Inference Microservice (Flask App)*
@@ -243,7 +243,7 @@ The backend is split into two microservices for modularity and scalability:
   The user accesses the Next.js frontend to upload data files (CSV, JSON) or enter natural language queries.
 
 2. *File Upload & Processing:*
-  Uploaded files are sent to the File Processing Microservice via Next.js API routes, where they are parsed and converted into structured databases (in-memory or persistent).
+  Uploaded files are sent to the File Processing Microservice via the Flask API, where they are parsed and converted into structured databases (in-memory or persistent).
 
 3. *Query Submission:*
   When the user submits a natural language query, the frontend forwards it to the Model Inference Microservice (Flask app) through a REST API call.
