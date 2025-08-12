@@ -261,7 +261,6 @@ def benchmark(queries):
     total = len(queries)
     print(f"\nBenchmark Score: {correct_count}/{total} correct")
 
-# Sample test queries
 queries = [
     "Which product has the highest price?",
     "List all products with price greater than 500.",
