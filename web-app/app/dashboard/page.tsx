@@ -9,12 +9,19 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
 import {
 	SidebarInset,
 	SidebarProvider,
 	SidebarTrigger,
 } from "@/components/ui/sidebar"
+import { MoreHorizontal, Notebook, Plus } from "lucide-react"
 import { useState } from "react"
 
 export default function Page() {
@@ -28,7 +35,6 @@ export default function Page() {
 		{ name: "Natural Language Processing", id: "7" },
 		{ name: "Time Series Analysis", id: "8" },
 		{ name: "Exploratory Data Analysis", id: "9" },
-
 	])
 	return (
 		<SidebarProvider>
@@ -63,7 +69,10 @@ export default function Page() {
 							</p>
 						</div>
 
-						<Button>Create Notebook</Button>
+						<Button>
+							<Plus className="mr-2 h-4 w-4" />
+							Create Notebook
+						</Button>
 					</div>
 
 					<div className="mt-5">
@@ -71,17 +80,33 @@ export default function Page() {
 							{notebooks.map((notebook) => (
 								<div
 									key={notebook.id}
-									className="rounded-lg p-4 hover:bg-muted bg-neutral-950/90  h-32"
+									className="group relative rounded-lg border p-4 hover:bg-muted bg-background transition-all duration-200"
 								>
-									<h4 className="text-xl font-semibold">
+									<div className="absolute top-2 right-2">
+										<DropdownMenu>
+											<DropdownMenuTrigger>
+												<Button
+													variant="ghost"
+													size="icon"
+												>
+													<MoreHorizontal className="h-4 w-4" />
+												</Button>
+											</DropdownMenuTrigger>
+											<DropdownMenuContent>
+												<DropdownMenuItem>
+													Delete
+												</DropdownMenuItem>
+											</DropdownMenuContent>
+										</DropdownMenu>
+									</div>
+									<h4 className="text-lg font-semibold">
 										{notebook.name}
 									</h4>
 									<p className="text-sm text-muted-foreground">
-										This is a sample notebook.
+										Updated 2 hours ago
 									</p>
 								</div>
 							))}
-
 						</div>
 					</div>
 				</div>
